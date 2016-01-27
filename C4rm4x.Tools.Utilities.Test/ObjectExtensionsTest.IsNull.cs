@@ -1,6 +1,6 @@
 ﻿#region Using
 
-using C4rm4x.Tools.TestUtilities.Attributes;
+using C4rm4x.Tools.TestUtilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 

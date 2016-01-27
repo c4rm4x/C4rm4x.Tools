@@ -7,7 +7,7 @@ using System.Linq;
 
 #endregion
 
-namespace C4rm4x.Tools.TestUtilities.Attributes
+namespace C4rm4x.Tools.TestUtilities
 {
     /// <summary>
     /// Flags a test as specified

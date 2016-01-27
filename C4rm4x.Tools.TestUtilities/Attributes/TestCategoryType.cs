@@ -1,4 +1,4 @@
-﻿namespace C4rm4x.Tools.TestUtilities.Attributes
+﻿namespace C4rm4x.Tools.TestUtilities
 {
     /// <summary>
     /// Test category
