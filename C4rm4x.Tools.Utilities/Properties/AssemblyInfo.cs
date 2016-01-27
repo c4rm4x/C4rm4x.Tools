@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("C4rm4x.Tools.Utilities")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Ve Interactive Ltd")]
+[assembly: AssemblyCompany("]C4rM4X[")]
 [assembly: AssemblyProduct("C4rm4x.Tools.Utilities")]
-[assembly: AssemblyCopyright("Copyright © Ve Interactive Ltd 2016")]
+[assembly: AssemblyCopyright("Copyright © ]C4rM4X[ 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
