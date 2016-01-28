@@ -1,14 +1,14 @@
 ﻿#region Using
 
 using C4rm4x.Tools.TestUtilities;
-using C4rm4x.Tools.TestUtils.Internal;
+using C4rm4x.Tools.TestUtilities.Internal;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SimpleInjector;
 using System.Data.Entity;
 
 #endregion
 
-namespace C4rm4x.Tools.TestUtils
+namespace C4rm4x.Tools.TestUtilities
 {
     /// <summary>
     /// Base test class for integration tests using Entity Framework for access to the database

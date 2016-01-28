@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("C4rm4x.Tools.TestUtils.Integration.EF.Extensions")]
+[assembly: AssemblyTitle("C4rm4x.Tools.TestUtilities.Integration.EF.Extensions")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("]C4rM4X[")]
-[assembly: AssemblyProduct("C4rm4x.Tools.TestUtils.Integration.EF.Extensions")]
+[assembly: AssemblyProduct("C4rm4x.Tools.TestUtilities.Integration.EF.Extensions")]
 [assembly: AssemblyCopyright("Copyright © ]C4rM4X[ 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

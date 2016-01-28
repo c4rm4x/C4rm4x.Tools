@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C4rm4x.Tools.TestUtilities"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C4rm4x.Tools.TestUtilities.Integration.Extensions", "C4rm4x.Tools.TestUtilities.Integration.Extensions\C4rm4x.Tools.TestUtilities.Integration.Extensions.csproj", "{3FC57B0A-82B4-407A-9F33-FED08754878F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C4rm4x.Tools.TestUtils.Integration.EF.Extensions", "C4rm4x.Tools.TestUtils.Integration.EF.Extensions\C4rm4x.Tools.TestUtils.Integration.EF.Extensions.csproj", "{D96FC828-CE21-4E7C-BC4B-5A0B682F965F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C4rm4x.Tools.TestUtilities.Integration.EF.Extensions", "C4rm4x.Tools.TestUtilities.Integration.EF.Extensions\C4rm4x.Tools.TestUtilities.Integration.EF.Extensions.csproj", "{D96FC828-CE21-4E7C-BC4B-5A0B682F965F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C4rm4x.Tools.HttpUtilities", "C4rm4x.Tools.HttpUtilities\C4rm4x.Tools.HttpUtilities.csproj", "{82523990-15BE-4C08-94F5-CBD59CBBB351}"
 EndProject

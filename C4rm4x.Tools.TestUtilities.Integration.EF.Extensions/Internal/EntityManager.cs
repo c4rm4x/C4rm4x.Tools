@@ -6,7 +6,7 @@ using System.Linq;
 
 #endregion
 
-namespace C4rm4x.Tools.TestUtils.Internal
+namespace C4rm4x.Tools.TestUtilities.Internal
 {
     /// <summary>
     /// Service responsible to manage the persistante of the entities
