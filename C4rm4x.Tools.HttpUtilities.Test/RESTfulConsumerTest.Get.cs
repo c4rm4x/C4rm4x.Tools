@@ -3,6 +3,7 @@
 using C4rm4x.Tools.TestUtilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
+using System.Net;
 
 #endregion
 
@@ -84,6 +85,15 @@ namespace C4rm4x.Tools.HttpUtilities.Test
                     new KeyValuePair<string, object>("type", "artist"));
 
                 Assert.IsNotNull(result);
+            }
+
+            [TestMethod, IntegrationTest]
+            public void Get_Returns_HttpResponseMessage()
+            {
+                var result = RESTfulConsumer.Get("http://www.google.com");
+
+                Assert.IsNotNull(result);
+                Assert.IsTrue(result.IsSuccessStatusCode);
             }
         }
     }

@@ -17,6 +17,21 @@ namespace C4rm4x.Tools.HttpUtilities
     public static class RESTfulConsumer
     {
         /// <summary>
+        /// Returns the Http response from a Get request
+        /// </summary>
+        /// <param name="domain">Server domain to retrieve information from</param>
+        /// <param name="method">Method to execute to retrieve instance</param>
+        /// <param name="parameters">Parameters to include as part of query string</param>
+        /// <returns>Returns the HttpResponseMessage</returns>
+        public static HttpResponseMessage Get(
+            string domain,
+            string method = "",
+            params KeyValuePair<string, object>[] parameters)
+        {
+            return InvokeGet(domain, method, parameters, enforceSuccess: false);
+        }
+
+        /// <summary>
         /// Returns an instance of type T
         /// </summary>
         /// <typeparam name="T">Type of the instance to retrieve</typeparam>
@@ -55,15 +70,10 @@ namespace C4rm4x.Tools.HttpUtilities
             string method,
             params KeyValuePair<string, object>[] parameters)
         {
-            return InvokeMethod(domain, client =>
-            {
-                return client
-                    .GetAsync(BuildMethodName(method, parameters))
-                    .Result;
-            })
-            .Content
-            .ReadAsAsync<TResult>()
-            .Result;
+            return InvokeGet(domain, method, parameters)
+                .Content
+                .ReadAsAsync<TResult>()
+                .Result;
         }
 
         /// <summary>
@@ -86,7 +96,7 @@ namespace C4rm4x.Tools.HttpUtilities
                 return client
                     .PostAsJsonAsync(BuildMethodName(method, parameters), objectToSend)
                     .Result;
-            }, false);
+            });
         }
 
         private static string BuildMethodName(
@@ -102,10 +112,25 @@ namespace C4rm4x.Tools.HttpUtilities
             return "{0}?{1}".AsFormat(method, queryString);
         }
 
+        private static HttpResponseMessage InvokeGet(
+            string domain,
+            string method,
+            KeyValuePair<string, object>[] parameters,
+            bool enforceSuccess = true)
+        {
+            return InvokeMethod(domain, client =>
+            {
+                return client
+                    .GetAsync(BuildMethodName(method, parameters))
+                    .Result;
+            }, enforceSuccess: enforceSuccess);
+        }
+
         private static HttpResponseMessage InvokeMethod(
             string domain,
             Func<HttpClient, HttpResponseMessage> method,
-            bool addApplicationJsonHeader = true)
+            bool addApplicationJsonHeader = true,
+            bool enforceSuccess = true)
         {
             using (var client = new HttpClient())
             {
@@ -113,8 +138,11 @@ namespace C4rm4x.Tools.HttpUtilities
 
                 SetsHeaders(client, addApplicationJsonHeader);
 
-                return method(client)
-                    .EnsureSuccessStatusCode();
+                var response = method(client);
+
+                return enforceSuccess
+                    ? response.EnsureSuccessStatusCode()
+                    : response;
             }
         }
 
