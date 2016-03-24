@@ -13,6 +13,11 @@
         /// <summary>
         /// Integrations tests
         /// </summary>
-        Integration
+        Integration,
+
+        /// <summary>
+        /// Acceptance tests
+        /// </summary>
+        Acceptance
     }
 }

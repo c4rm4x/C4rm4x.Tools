@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\AcceptanceTestAttribute.cs" />
     <Compile Include="Attributes\IntegrationTestAttribute.cs" />
     <Compile Include="Attributes\TestCategoryAttribute.cs" />
     <Compile Include="Attributes\TestCategoryType.cs" />
