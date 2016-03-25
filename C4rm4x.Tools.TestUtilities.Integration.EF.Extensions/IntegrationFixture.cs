@@ -21,7 +21,7 @@ namespace C4rm4x.Tools.TestUtilities
         where C : DbContext
     {
         /// <summary>
-        /// Initialise the test class
+        /// Finalises the test class
         /// </summary>
         [TestCleanup]
         public override void Cleanup()

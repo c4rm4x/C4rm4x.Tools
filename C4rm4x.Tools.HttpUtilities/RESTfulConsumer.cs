@@ -21,14 +21,18 @@ namespace C4rm4x.Tools.HttpUtilities
         /// </summary>
         /// <param name="domain">Server domain to retrieve information from</param>
         /// <param name="method">Method to execute to retrieve instance</param>
+        /// <param name="jsonWebToken">The JWT for authentication</param>
+        /// <param name="httpMessageHandler">The http message handler (if any)</param>
         /// <param name="parameters">Parameters to include as part of query string</param>
         /// <returns>Returns the HttpResponseMessage</returns>
         public static HttpResponseMessage Get(
             string domain,
             string method = "",
+            string jsonWebToken = null,
+            HttpMessageHandler httpMessageHandler = null,
             params KeyValuePair<string, object>[] parameters)
         {
-            return InvokeGet(domain, method, parameters, enforceSuccess: false);
+            return InvokeGet(domain, method, jsonWebToken, httpMessageHandler, parameters, enforceSuccess: false);
         }
 
         /// <summary>
@@ -37,15 +41,19 @@ namespace C4rm4x.Tools.HttpUtilities
         /// <typeparam name="T">Type of the instance to retrieve</typeparam>
         /// <param name="domain">Server domain to retrieve information from</param>
         /// <param name="method">Method to execute to retrieve instance</param>
+        /// <param name="jsonWebToken">The JWT for authentication</param>
+        /// <param name="httpMessageHandler">The http message handler (if any)</param>
         /// <param name="parameters">Parameters to include as part of query string</param>
         /// <returns>Returns an instance of type T if exists</returns>
         public static T Get<T>(
             string domain,
             string method = "",
+            string jsonWebToken = null,
+            HttpMessageHandler httpMessageHandler = null,
             params KeyValuePair<string, object>[] parameters)
             where T : class
         {
-            return GetBy<T>(domain, method, parameters);
+            return GetBy<T>(domain, method, jsonWebToken, httpMessageHandler, parameters);
         }
 
         /// <summary>
@@ -54,23 +62,29 @@ namespace C4rm4x.Tools.HttpUtilities
         /// <typeparam name="T">Type of the instance to retrieve</typeparam>
         /// <param name="domain">Server domain to retrieve information from</param>
         /// <param name="method">Method to execute to retrieve instance</param>
+        /// <param name="jsonWebToken">The JWT for authentication</param>
+        /// <param name="httpMessageHandler">The http message handler (if any)</param>
         /// <param name="parameters">Parameters to include as part of query string</param>
         /// <returns>Returns the list of all the instances of type T if any</returns>
         public static IEnumerable<T> GetAll<T>(
             string domain,
             string method = "",
+            string jsonWebToken = null,
+            HttpMessageHandler httpMessageHandler = null,
             params KeyValuePair<string, object>[] parameters)
             where T : class
         {
-            return GetBy<List<T>>(domain, method, parameters);
+            return GetBy<List<T>>(domain, method, jsonWebToken, httpMessageHandler, parameters);
         }
 
         private static TResult GetBy<TResult>(
             string domain,
             string method,
+            string jsonWebToken,
+            HttpMessageHandler httpMessageHandler,
             params KeyValuePair<string, object>[] parameters)
         {
-            return InvokeGet(domain, method, parameters)
+            return InvokeGet(domain, method, jsonWebToken, httpMessageHandler, parameters)
                 .Content
                 .ReadAsAsync<TResult>()
                 .Result;
@@ -83,20 +97,83 @@ namespace C4rm4x.Tools.HttpUtilities
         /// <param name="objectToSend">Object of type T to be sent</param>
         /// <param name="domain">Server domain to send information to</param>
         /// <param name="method">Method to execute to send information</param>
+        /// <param name="jsonWebToken">The JWT for authentication</param>
+        /// <param name="httpMessageHandler">The http message handler (if any)</param>
         /// <param name="parameters">Parameters to include as part of query string</param>
-        public static void Post<T>(
+        /// <returns>Returns the HttpResponseMessage</returns>
+        public static HttpResponseMessage Post<T>(
             T objectToSend,
             string domain,
             string method = "",
+            string jsonWebToken = null,
+            HttpMessageHandler httpMessageHandler = null,
             params KeyValuePair<string, object>[] parameters)
             where T : class
         {
-            InvokeMethod(domain, client =>
+            return InvokeMethod(domain, client =>
             {
                 return client
                     .PostAsJsonAsync(BuildMethodName(method, parameters), objectToSend)
                     .Result;
-            });
+            }, 
+            jsonWebToken,
+            httpMessageHandler: httpMessageHandler);
+        }
+
+        /// <summary>
+        /// Sends a request of type T as a Put
+        /// </summary>
+        /// <typeparam name="T">Type of the request</typeparam>
+        /// <param name="objectToSend">Object of type T to be sent</param>
+        /// <param name="domain">Server domain to send information to</param>
+        /// <param name="method">Method to execute to send information</param>
+        /// <param name="jsonWebToken">The JWT for authentication</param>
+        /// <param name="httpMessageHandler">The http message handler (if any)</param>
+        /// <param name="parameters">Parameters to include as part of query string</param>
+        /// <returns>Returns the HttpResponseMessage</returns>
+        public static HttpResponseMessage Put<T>(
+            T objectToSend,
+            string domain,
+            string method = "",
+            string jsonWebToken = null,
+            HttpMessageHandler httpMessageHandler = null,
+            params KeyValuePair<string, object>[] parameters)
+            where T : class
+        {
+            return InvokeMethod(domain, client =>
+            {
+                return client
+                    .PutAsJsonAsync(BuildMethodName(method, parameters), objectToSend)
+                    .Result;
+            },
+            jsonWebToken,
+            httpMessageHandler: httpMessageHandler);
+        }
+
+        /// <summary>
+        /// Returns the Http response from a Delete request
+        /// </summary>
+        /// <param name="domain">Server domain to delete information from</param>
+        /// <param name="method">Method to execute to delete the info</param>
+        /// <param name="jsonWebToken">The JWT for authentication</param>
+        /// <param name="httpMessageHandler">The http message handler (if any)</param>
+        /// <param name="parameters">Parameters to include as part of query string</param>
+        /// <returns>Returns the HttpResponseMessage</returns>
+        public static HttpResponseMessage Delete(
+            string domain,
+            string method = "",
+            string jsonWebToken = null,
+            HttpMessageHandler httpMessageHandler = null,
+            params KeyValuePair<string, object>[] parameters)
+        {
+            return InvokeMethod(domain, client =>
+            {
+                return client
+                    .DeleteAsync(BuildMethodName(method, parameters))
+                    .Result;
+            },
+            jsonWebToken,
+            httpMessageHandler: httpMessageHandler);
         }
 
         private static string BuildMethodName(
@@ -115,6 +192,8 @@ namespace C4rm4x.Tools.HttpUtilities
         private static HttpResponseMessage InvokeGet(
             string domain,
             string method,
+            string jsonWebToken,
+            HttpMessageHandler httpMessageHandler,
             KeyValuePair<string, object>[] parameters,
             bool enforceSuccess = true)
         {
@@ -123,20 +202,25 @@ namespace C4rm4x.Tools.HttpUtilities
                 return client
                     .GetAsync(BuildMethodName(method, parameters))
                     .Result;
-            }, enforceSuccess: enforceSuccess);
+            }, 
+            jsonWebToken,
+            enforceSuccess: enforceSuccess,
+            httpMessageHandler: httpMessageHandler);
         }
 
         private static HttpResponseMessage InvokeMethod(
             string domain,
             Func<HttpClient, HttpResponseMessage> method,
-            bool addApplicationJsonHeader = true,
-            bool enforceSuccess = true)
+            string jsonWebToken,
+            bool addApplicationJsonHeader = true,            
+            bool enforceSuccess = true,
+            HttpMessageHandler httpMessageHandler = null)
         {
-            using (var client = new HttpClient())
+            using (var client = GetHttpClient(httpMessageHandler))
             {
                 client.BaseAddress = new Uri(domain);
 
-                SetsHeaders(client, addApplicationJsonHeader);
+                SetsHeaders(client, addApplicationJsonHeader, jsonWebToken);
 
                 var response = method(client);
 
@@ -146,8 +230,25 @@ namespace C4rm4x.Tools.HttpUtilities
             }
         }
 
+        private static HttpClient GetHttpClient(
+            HttpMessageHandler httpMessageHandler)
+        {
+            return httpMessageHandler.IsNull()
+                ? new HttpClient()
+                : new HttpClient(httpMessageHandler);
+        }
+
         private static void SetsHeaders(
             HttpClient client,
+            bool addApplicationJsonHeader,
+            string jsonWebToken = null)
+        {
+            SetAcceptHeader(client, addApplicationJsonHeader);
+            SetAuthorizationHeader(client, jsonWebToken);
+        }
+
+        private static void SetAcceptHeader(
+            HttpClient client, 
             bool addApplicationJsonHeader)
         {
             const string ApplicationJson = "application/json";
@@ -158,6 +259,16 @@ namespace C4rm4x.Tools.HttpUtilities
 
             client.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue(ApplicationJson));
+        }
+
+        private static void SetAuthorizationHeader(
+            HttpClient client, 
+            string jsonWebToken)
+        {
+            if (jsonWebToken.IsNullOrEmpty()) return;
+
+            client.DefaultRequestHeaders.Authorization =
+                AuthenticationHeaderValue.Parse(jsonWebToken);
         }
     }
 }

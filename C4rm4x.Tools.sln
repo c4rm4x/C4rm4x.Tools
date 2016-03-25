@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C4rm4x.Tools.HttpUtilities"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C4rm4x.Tools.HttpUtilities.Test", "C4rm4x.Tools.HttpUtilities.Test\C4rm4x.Tools.HttpUtilities.Test.csproj", "{E5C0AA29-D7B1-4BC4-BD27-2DF7C3B9853E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C4rm4x.Tools.TestUtilities.Acceptance.Extensions", "C4rm4x.Tools.TestUtilities.Acceptance.Extensions\C4rm4x.Tools.TestUtilities.Acceptance.Extensions.csproj", "{57F6587C-2E4F-4A90-9A7A-585B97C0324F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +55,10 @@ Global
 		{E5C0AA29-D7B1-4BC4-BD27-2DF7C3B9853E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E5C0AA29-D7B1-4BC4-BD27-2DF7C3B9853E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E5C0AA29-D7B1-4BC4-BD27-2DF7C3B9853E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57F6587C-2E4F-4A90-9A7A-585B97C0324F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57F6587C-2E4F-4A90-9A7A-585B97C0324F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57F6587C-2E4F-4A90-9A7A-585B97C0324F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57F6587C-2E4F-4A90-9A7A-585B97C0324F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
