@@ -21,6 +21,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C4rm4x.Tools.HttpUtilities.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C4rm4x.Tools.TestUtilities.Acceptance.Extensions", "C4rm4x.Tools.TestUtilities.Acceptance.Extensions\C4rm4x.Tools.TestUtilities.Acceptance.Extensions.csproj", "{57F6587C-2E4F-4A90-9A7A-585B97C0324F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C4rm4x.Tools.Security.Jwt", "C4rm4x.Tools.Security.Jwt\C4rm4x.Tools.Security.Jwt.csproj", "{4E22F850-5A7D-40C3-8B7A-72186777DBC9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C4rm4x.Tools.Security.Jwt.Test", "C4rm4x.Tools.Security.Jwt.Test\C4rm4x.Tools.Security.Jwt.Test.csproj", "{9239DA6A-4F57-4626-BB52-6BA3606DEEE4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +63,14 @@ Global
 		{57F6587C-2E4F-4A90-9A7A-585B97C0324F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{57F6587C-2E4F-4A90-9A7A-585B97C0324F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{57F6587C-2E4F-4A90-9A7A-585B97C0324F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E22F850-5A7D-40C3-8B7A-72186777DBC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E22F850-5A7D-40C3-8B7A-72186777DBC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E22F850-5A7D-40C3-8B7A-72186777DBC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E22F850-5A7D-40C3-8B7A-72186777DBC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9239DA6A-4F57-4626-BB52-6BA3606DEEE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9239DA6A-4F57-4626-BB52-6BA3606DEEE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9239DA6A-4F57-4626-BB52-6BA3606DEEE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9239DA6A-4F57-4626-BB52-6BA3606DEEE4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -66,5 +78,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{A02CDAFE-F57E-49B7-9A4F-96B50487C5CB} = {F252BFEA-9F85-4B29-8AB5-71F821A67E42}
 		{E5C0AA29-D7B1-4BC4-BD27-2DF7C3B9853E} = {F252BFEA-9F85-4B29-8AB5-71F821A67E42}
+		{9239DA6A-4F57-4626-BB52-6BA3606DEEE4} = {F252BFEA-9F85-4B29-8AB5-71F821A67E42}
 	EndGlobalSection
 EndGlobal
