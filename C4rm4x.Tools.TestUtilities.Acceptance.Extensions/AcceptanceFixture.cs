@@ -17,18 +17,22 @@ using System.Web.Http;
 namespace C4rm4x.Tools.TestUtilities
 {
     /// <summary>
-    /// Base test class for acceptance tests using Entity Framework for access to the database
+    /// Base test class for acceptance tests
     /// </summary>
-    /// <typeparam name="TContext">Type of DbContext</typeparam>
     [TestClass]
-    public abstract class AcceptanceFixture<TContext>
-        where TContext : DbContext
+    public abstract class AcceptanceFixture
     {
         private Container _container;
         private Scope _scope;
         private GivenWhenThen _givenWhenThen;
 
         private readonly Action<HttpConfiguration> _configurator;
+
+        /// <summary>
+        /// The test context
+        /// </summary>
+        protected TestContext Context { get; private set; } 
+            = new TestContext();
 
         /// <summary>
         /// Constructor
@@ -75,10 +79,8 @@ namespace C4rm4x.Tools.TestUtilities
         {
             _givenWhenThen = null;
 
-            EntityManager.Restore();
-
             _scope.Dispose(); // Enforce to dispose all the components
-        }        
+        }
 
         /// <summary>
         /// Registers all the dependencies for this acceptance test
@@ -90,33 +92,6 @@ namespace C4rm4x.Tools.TestUtilities
             Lifestyle lifeStyle)
         {
             container.Register<InMemoryHttpServer>(lifeStyle);
-            container.Register<EntityManager<TContext>>(lifeStyle);
-            container.Register<TContext>(lifeStyle);
-        }
-
-        /// <summary>
-        /// Adds a new entity to the db context
-        /// </summary>
-        /// <typeparam name="TEntity">Type of the entity</typeparam>
-        /// <param name="entity">Entity to add</param>
-        /// <param name="saveContext">Indicates whether the entity must be saved in the context</param>
-        protected void AddEntityToContext<TEntity>(
-            TEntity entity,
-            bool saveContext = false)
-            where TEntity : class
-        {
-            EntityManager.Add(entity);
-
-            if (saveContext)
-                SaveContext();
-        }
-
-        /// <summary>
-        /// Saves all the entities within the context into the database
-        /// </summary>
-        protected void SaveContext()
-        {
-            EntityManager.SaveAllChanges();
         }
 
         /// <summary>
@@ -241,14 +216,83 @@ namespace C4rm4x.Tools.TestUtilities
             return _container.GetInstance<TService>();
         }
 
-        private EntityManager<TContext> EntityManager
-        {
-            get { return GetInstance<EntityManager<TContext>>(); }
-        }
-
         private InMemoryHttpServer HttpServer
         {
             get { return GetInstance<InMemoryHttpServer>(); }
+        }
+    }
+
+    /// <summary>
+    /// Base test class for acceptance tests using Entity Framework for access to the database
+    /// </summary>
+    /// <typeparam name="TContext">Type of DbContext</typeparam>
+    [TestClass]
+    public abstract class AcceptanceFixture<TContext> :
+        AcceptanceFixture
+        where TContext : DbContext
+    {
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="configurator">Http configurator</param>
+        public AcceptanceFixture(Action<HttpConfiguration> configurator)
+            : base(configurator)
+        { }        
+
+        /// <summary>
+        /// Finalises the test class
+        /// </summary>
+        [TestCleanup]
+        public override void Cleanup()
+        {
+            EntityManager.Restore();
+
+            base.Cleanup();
+        }        
+
+        /// <summary>
+        /// Registers all the dependencies for this acceptance test
+        /// </summary>
+        /// <param name="container">The container</param>
+        /// <param name="lifeStyle">The life style that specifies how the return instance will be cached</param>
+        protected override void RegisterDependencies(
+            Container container,
+            Lifestyle lifeStyle)
+        {
+            container.Register<EntityManager<TContext>>(lifeStyle);
+            container.Register<TContext>(lifeStyle);
+
+            base.RegisterDependencies(container, lifeStyle);
+        }
+
+        /// <summary>
+        /// Adds a new entity to the db context
+        /// </summary>
+        /// <typeparam name="TEntity">Type of the entity</typeparam>
+        /// <param name="entity">Entity to add</param>
+        /// <param name="saveContext">Indicates whether the entity must be saved in the context</param>
+        protected void AddEntityToContext<TEntity>(
+            TEntity entity,
+            bool saveContext = false)
+            where TEntity : class
+        {
+            EntityManager.Add(entity);
+
+            if (saveContext)
+                SaveContext();
+        }
+
+        /// <summary>
+        /// Saves all the entities within the context into the database
+        /// </summary>
+        protected void SaveContext()
+        {
+            EntityManager.SaveAllChanges();
+        }
+        
+        private EntityManager<TContext> EntityManager
+        {
+            get { return GetInstance<EntityManager<TContext>>(); }
         }
     }
 }

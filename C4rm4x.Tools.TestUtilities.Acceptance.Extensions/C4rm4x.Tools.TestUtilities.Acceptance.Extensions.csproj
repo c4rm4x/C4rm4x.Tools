@@ -97,6 +97,7 @@
     <Compile Include="Internal\EntityManager.cs" />
     <Compile Include="Internal\GivenWhenThen.cs" />
     <Compile Include="Internal\InMemoryHttpServer.cs" />
+    <Compile Include="TestContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
