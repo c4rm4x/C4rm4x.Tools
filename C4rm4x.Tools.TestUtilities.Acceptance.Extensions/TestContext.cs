@@ -31,28 +31,22 @@ namespace C4rm4x.Tools.TestUtilities
         }
 
         /// <summary>
-        /// Pushes the key of type T with the given value
-        /// </summary>
-        /// <typeparam name="T">Type of the value</typeparam>
-        /// <param name="key">The identifier</param>
-        /// <param name="value">The value</param>
-        /// <remarks>If a previous value with same key exists, regarless the type, gets overwritten</remarks>
-        public void Push<T>(string key, T value)
-        {
-            _context[key] = value;
-        }
-
-        /// <summary>
-        /// Retrieves the value of the given key
+        /// Gets or sets the value with the given key
         /// </summary>
         /// <param name="key">The identifier</param>
-        /// <returns>The value associated with the given key, if exists; null, otherwise</returns>
-        public object Get(string key)
+        /// <returns>The element with the specified key</returns>
+        /// <exception cref="ArgumentNullException">If the key is null</exception>
+        /// <exception cref="KeyNotFoundException">Key cannot be found</exception>
+        public object this[string key]
         {
-            if (_context.ContainsKey(key))
+            get
+            {
                 return _context[key];
-
-            return null;
+            }
+            set
+            {
+                _context[key] = value;
+            }
         }
 
         /// <summary>
@@ -60,11 +54,13 @@ namespace C4rm4x.Tools.TestUtilities
         /// </summary>
         /// <typeparam name="T">The type of the object retrieved (if any)</typeparam>
         /// <param name="key">The identifier</param>
-        /// <returns>The value associated with the given key, if exists; null, otherwise</returns>
+        /// <returns>The value associated with the given key (ifany)</returns>
+        /// <exception cref="ArgumentNullException">If the key is null</exception>
+        /// <exception cref="KeyNotFoundException">Key cannot be found</exception>
         /// <exception cref="InvalidCastException">If associated value cannot be cast as an object of type T</exception>
         public T Get<T>(string key)
         {
-            return (T)Get(key);
+            return (T)this[key];
         }
     }
 }

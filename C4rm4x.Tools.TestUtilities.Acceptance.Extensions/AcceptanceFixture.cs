@@ -80,6 +80,8 @@ namespace C4rm4x.Tools.TestUtilities
             _givenWhenThen = null;
 
             _scope.Dispose(); // Enforce to dispose all the components
+
+            Context.Cleanup();
         }
 
         /// <summary>
