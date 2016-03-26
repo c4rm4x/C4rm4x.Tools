@@ -32,7 +32,7 @@ namespace C4rm4x.Tools.HttpUtilities
             HttpMessageHandler httpMessageHandler = null,
             params KeyValuePair<string, object>[] parameters)
         {
-            return InvokeGet(domain, method, jsonWebToken, httpMessageHandler, parameters, enforceSuccess: false);
+            return InvokeGet(domain, method, jsonWebToken, httpMessageHandler, parameters);
         }
 
         /// <summary>
@@ -85,6 +85,7 @@ namespace C4rm4x.Tools.HttpUtilities
             params KeyValuePair<string, object>[] parameters)
         {
             return InvokeGet(domain, method, jsonWebToken, httpMessageHandler, parameters)
+                .EnsureSuccessStatusCode()
                 .Content
                 .ReadAsAsync<TResult>()
                 .Result;
@@ -115,9 +116,7 @@ namespace C4rm4x.Tools.HttpUtilities
                 return client
                     .PostAsJsonAsync(BuildMethodName(method, parameters), objectToSend)
                     .Result;
-            }, 
-            jsonWebToken,
-            httpMessageHandler: httpMessageHandler);
+            }, jsonWebToken, httpMessageHandler);
         }
 
         /// <summary>
@@ -145,9 +144,7 @@ namespace C4rm4x.Tools.HttpUtilities
                 return client
                     .PutAsJsonAsync(BuildMethodName(method, parameters), objectToSend)
                     .Result;
-            },
-            jsonWebToken,
-            httpMessageHandler: httpMessageHandler);
+            }, jsonWebToken, httpMessageHandler);
         }
 
         /// <summary>
@@ -171,9 +168,7 @@ namespace C4rm4x.Tools.HttpUtilities
                 return client
                     .DeleteAsync(BuildMethodName(method, parameters))
                     .Result;
-            },
-            jsonWebToken,
-            httpMessageHandler: httpMessageHandler);
+            }, jsonWebToken, httpMessageHandler);
         }
 
         private static string BuildMethodName(
@@ -194,27 +189,22 @@ namespace C4rm4x.Tools.HttpUtilities
             string method,
             string jsonWebToken,
             HttpMessageHandler httpMessageHandler,
-            KeyValuePair<string, object>[] parameters,
-            bool enforceSuccess = true)
+            KeyValuePair<string, object>[] parameters)
         {
             return InvokeMethod(domain, client =>
             {
                 return client
                     .GetAsync(BuildMethodName(method, parameters))
                     .Result;
-            }, 
-            jsonWebToken,
-            enforceSuccess: enforceSuccess,
-            httpMessageHandler: httpMessageHandler);
+            }, jsonWebToken, httpMessageHandler);
         }
 
         private static HttpResponseMessage InvokeMethod(
             string domain,
             Func<HttpClient, HttpResponseMessage> method,
             string jsonWebToken,
-            bool addApplicationJsonHeader = true,            
-            bool enforceSuccess = true,
-            HttpMessageHandler httpMessageHandler = null)
+            HttpMessageHandler httpMessageHandler,
+            bool addApplicationJsonHeader = true)
         {
             using (var client = GetHttpClient(httpMessageHandler))
             {
@@ -222,11 +212,7 @@ namespace C4rm4x.Tools.HttpUtilities
 
                 SetsHeaders(client, addApplicationJsonHeader, jsonWebToken);
 
-                var response = method(client);
-
-                return enforceSuccess
-                    ? response.EnsureSuccessStatusCode()
-                    : response;
+                return method(client);
             }
         }
 
