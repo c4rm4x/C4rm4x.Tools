@@ -207,6 +207,20 @@ namespace C4rm4x.Tools.TestUtilities
         }
 
         /// <summary>
+        /// Given step to get a token with the given role/permissions
+        /// </summary>
+        /// <param name="role"></param>
+        /// <param name="permissions"></param>
+        protected void UserIsLoggedInAs(
+            string role = null,
+            params KeyValuePair<string, object>[] permissions)
+        {
+            var userIsLoggedInAsStep = new UserIsLoggedInAsStep(HttpServer);
+
+            userIsLoggedInAsStep.TokenFor(role, permissions);
+        }
+
+        /// <summary>
         /// Gets an instance of the specified type
         /// </summary>
         /// <typeparam name="TService">Type of instance</typeparam>

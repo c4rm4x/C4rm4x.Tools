@@ -35,6 +35,10 @@
       <HintPath>..\packages\C4rm4x.Tools.HttpUtilities.1.2.0.0\lib\net452\C4rm4x.Tools.HttpUtilities.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="C4rm4x.Tools.Security.Jwt, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\C4rm4x.Tools.Security.Jwt.1.0.0.0\lib\net452\C4rm4x.Tools.Security.Jwt.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="C4rm4x.Tools.TestUtilities, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\C4rm4x.Tools.TestUtilities.1.1.0.0\lib\net452\C4rm4x.Tools.TestUtilities.dll</HintPath>
       <Private>True</Private>
@@ -72,6 +76,11 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=4.0.20622.1351, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.4.0.2.206221351\lib\net45\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
       <Private>True</Private>
@@ -97,6 +106,7 @@
     <Compile Include="Internal\EntityManager.cs" />
     <Compile Include="Internal\GivenWhenThen.cs" />
     <Compile Include="Internal\InMemoryHttpServer.cs" />
+    <Compile Include="Internal\UserIsLoggedInAsStep.cs" />
     <Compile Include="TestContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

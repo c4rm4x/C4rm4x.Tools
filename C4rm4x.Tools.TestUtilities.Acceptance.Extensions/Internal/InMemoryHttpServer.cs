@@ -30,6 +30,11 @@ namespace C4rm4x.Tools.TestUtilities.Internal
         public bool IsDisposed { get; private set; }
 
         /// <summary>
+        /// Gets the security token to be included with each request
+        /// </summary>
+        public string SecurityToken { get; private set; }
+
+        /// <summary>
         /// Constructor
         /// </summary>
         public InMemoryHttpServer()
@@ -62,7 +67,7 @@ namespace C4rm4x.Tools.TestUtilities.Internal
             string method,
             params KeyValuePair<string, object>[] parameters)
         {
-            return RESTfulConsumer.Get(BaseUrl, method, null, _httpServer, parameters);
+            return RESTfulConsumer.Get(BaseUrl, method, SecurityToken, _httpServer, parameters);
         }
 
         /// <summary>
@@ -77,7 +82,7 @@ namespace C4rm4x.Tools.TestUtilities.Internal
             params KeyValuePair<string, object>[] parameters)
             where T : class
         {
-            return RESTfulConsumer.Get<T>(BaseUrl, method, null, _httpServer, parameters);
+            return RESTfulConsumer.Get<T>(BaseUrl, method, SecurityToken, _httpServer, parameters);
         }
 
         /// <summary>
@@ -92,7 +97,7 @@ namespace C4rm4x.Tools.TestUtilities.Internal
             params KeyValuePair<string, object>[] parameters)
             where T : class
         {
-            return RESTfulConsumer.GetAll<T>(BaseUrl, method, null, _httpServer, parameters);
+            return RESTfulConsumer.GetAll<T>(BaseUrl, method, SecurityToken, _httpServer, parameters);
         }
 
         /// <summary>
@@ -107,7 +112,7 @@ namespace C4rm4x.Tools.TestUtilities.Internal
             string method)
             where T : class
         {
-            return RESTfulConsumer.Post(objectToSend, BaseUrl, method, null, _httpServer);
+            return RESTfulConsumer.Post(objectToSend, BaseUrl, method, SecurityToken, _httpServer);
         }
 
         /// <summary>
@@ -124,7 +129,7 @@ namespace C4rm4x.Tools.TestUtilities.Internal
             params KeyValuePair<string, object>[] parameters)
             where T : class
         {
-            return RESTfulConsumer.Put(objectToSend, BaseUrl, method, null, _httpServer, parameters);
+            return RESTfulConsumer.Put(objectToSend, BaseUrl, method, SecurityToken, _httpServer, parameters);
         }
 
         /// <summary>
@@ -137,7 +142,18 @@ namespace C4rm4x.Tools.TestUtilities.Internal
             string method,
             params KeyValuePair<string, object>[] parameters)
         {
-            return RESTfulConsumer.Delete(BaseUrl, method, null, _httpServer, parameters);
+            return RESTfulConsumer.Delete(BaseUrl, method, SecurityToken, _httpServer, parameters);
+        }
+
+        /// <summary>
+        /// Sets the security token to be used in each request
+        /// </summary>
+        /// <param name="securityToken"></param>
+        public void SetSecurityToken(string securityToken)
+        {
+            securityToken.NotNullOrEmpty(nameof(securityToken));
+
+            SecurityToken = securityToken;
         }
 
         /// <summary>
