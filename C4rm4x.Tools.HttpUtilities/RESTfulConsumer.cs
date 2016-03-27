@@ -22,17 +22,15 @@ namespace C4rm4x.Tools.HttpUtilities
         /// <param name="domain">Server domain to retrieve information from</param>
         /// <param name="method">Method to execute to retrieve instance</param>
         /// <param name="authorizationHeader">The authorization header</param>
-        /// <param name="httpMessageHandler">The http message handler (if any)</param>
         /// <param name="parameters">Parameters to include as part of query string</param>
         /// <returns>Returns the HttpResponseMessage</returns>
         public static HttpResponseMessage Get(
             string domain,
             string method = "",
             string authorizationHeader = null,
-            HttpMessageHandler httpMessageHandler = null,
             params KeyValuePair<string, object>[] parameters)
         {
-            return InvokeGet(domain, method, authorizationHeader, httpMessageHandler, parameters);
+            return InvokeGet(domain, method, authorizationHeader, parameters);
         }
 
         /// <summary>
@@ -42,18 +40,16 @@ namespace C4rm4x.Tools.HttpUtilities
         /// <param name="domain">Server domain to retrieve information from</param>
         /// <param name="method">Method to execute to retrieve instance</param>
         /// <param name="authorizationHeader">The authorization header</param>
-        /// <param name="httpMessageHandler">The http message handler (if any)</param>
         /// <param name="parameters">Parameters to include as part of query string</param>
         /// <returns>Returns an instance of type T if exists</returns>
         public static T Get<T>(
             string domain,
             string method = "",
             string authorizationHeader = null,
-            HttpMessageHandler httpMessageHandler = null,
             params KeyValuePair<string, object>[] parameters)
             where T : class
         {
-            return GetBy<T>(domain, method, authorizationHeader, httpMessageHandler, parameters);
+            return GetBy<T>(domain, method, authorizationHeader, parameters);
         }
 
         /// <summary>
@@ -63,28 +59,25 @@ namespace C4rm4x.Tools.HttpUtilities
         /// <param name="domain">Server domain to retrieve information from</param>
         /// <param name="method">Method to execute to retrieve instance</param>
         /// <param name="authorizationHeader">The authorization header</param>
-        /// <param name="httpMessageHandler">The http message handler (if any)</param>
         /// <param name="parameters">Parameters to include as part of query string</param>
         /// <returns>Returns the list of all the instances of type T if any</returns>
         public static IEnumerable<T> GetAll<T>(
             string domain,
             string method = "",
             string authorizationHeader = null,
-            HttpMessageHandler httpMessageHandler = null,
             params KeyValuePair<string, object>[] parameters)
             where T : class
         {
-            return GetBy<List<T>>(domain, method, authorizationHeader, httpMessageHandler, parameters);
+            return GetBy<List<T>>(domain, method, authorizationHeader, parameters);
         }
 
         private static TResult GetBy<TResult>(
             string domain,
             string method,
-            string authorizationHeader,
-            HttpMessageHandler httpMessageHandler,
+            string authorizationHeader,            
             params KeyValuePair<string, object>[] parameters)
         {
-            return InvokeGet(domain, method, authorizationHeader, httpMessageHandler, parameters)
+            return InvokeGet(domain, method, authorizationHeader, parameters)
                 .EnsureSuccessStatusCode()
                 .Content
                 .ReadAsAsync<TResult>()
@@ -98,8 +91,7 @@ namespace C4rm4x.Tools.HttpUtilities
         /// <param name="objectToSend">Object of type T to be sent</param>
         /// <param name="domain">Server domain to send information to</param>
         /// <param name="method">Method to execute to send information</param>
-        /// <param name="authorizationHeader">The authorization header</param>
-        /// <param name="httpMessageHandler">The http message handler (if any)</param>
+        /// <param name="authorizationHeader">The authorization header</param>        
         /// <param name="parameters">Parameters to include as part of query string</param>
         /// <returns>Returns the HttpResponseMessage</returns>
         public static HttpResponseMessage Post<T>(
@@ -107,7 +99,6 @@ namespace C4rm4x.Tools.HttpUtilities
             string domain,
             string method = "",
             string authorizationHeader = null,
-            HttpMessageHandler httpMessageHandler = null,
             params KeyValuePair<string, object>[] parameters)
             where T : class
         {
@@ -116,7 +107,7 @@ namespace C4rm4x.Tools.HttpUtilities
                 return client
                     .PostAsJsonAsync(BuildMethodName(method, parameters), objectToSend)
                     .Result;
-            }, authorizationHeader, httpMessageHandler);
+            }, authorizationHeader);
         }
 
         /// <summary>
@@ -127,7 +118,6 @@ namespace C4rm4x.Tools.HttpUtilities
         /// <param name="domain">Server domain to send information to</param>
         /// <param name="method">Method to execute to send information</param>
         /// <param name="authorizationHeader">The authorization header</param>
-        /// <param name="httpMessageHandler">The http message handler (if any)</param>
         /// <param name="parameters">Parameters to include as part of query string</param>
         /// <returns>Returns the HttpResponseMessage</returns>
         public static HttpResponseMessage Put<T>(
@@ -135,7 +125,6 @@ namespace C4rm4x.Tools.HttpUtilities
             string domain,
             string method = "",
             string authorizationHeader = null,
-            HttpMessageHandler httpMessageHandler = null,
             params KeyValuePair<string, object>[] parameters)
             where T : class
         {
@@ -144,7 +133,7 @@ namespace C4rm4x.Tools.HttpUtilities
                 return client
                     .PutAsJsonAsync(BuildMethodName(method, parameters), objectToSend)
                     .Result;
-            }, authorizationHeader, httpMessageHandler);
+            }, authorizationHeader);
         }
 
         /// <summary>
@@ -152,15 +141,13 @@ namespace C4rm4x.Tools.HttpUtilities
         /// </summary>
         /// <param name="domain">Server domain to delete information from</param>
         /// <param name="method">Method to execute to delete the info</param>
-        /// <param name="authorizationHeader">The authorization header</param>
-        /// <param name="httpMessageHandler">The http message handler (if any)</param>
+        /// <param name="authorizationHeader">The authorization header</param>        
         /// <param name="parameters">Parameters to include as part of query string</param>
         /// <returns>Returns the HttpResponseMessage</returns>
         public static HttpResponseMessage Delete(
             string domain,
             string method = "",
             string authorizationHeader = null,
-            HttpMessageHandler httpMessageHandler = null,
             params KeyValuePair<string, object>[] parameters)
         {
             return InvokeMethod(domain, client =>
@@ -168,7 +155,7 @@ namespace C4rm4x.Tools.HttpUtilities
                 return client
                     .DeleteAsync(BuildMethodName(method, parameters))
                     .Result;
-            }, authorizationHeader, httpMessageHandler);
+            }, authorizationHeader);
         }
 
         private static string BuildMethodName(
@@ -188,7 +175,6 @@ namespace C4rm4x.Tools.HttpUtilities
             string domain,
             string method,
             string authorizationHeader,
-            HttpMessageHandler httpMessageHandler,
             KeyValuePair<string, object>[] parameters)
         {
             return InvokeMethod(domain, client =>
@@ -196,17 +182,16 @@ namespace C4rm4x.Tools.HttpUtilities
                 return client
                     .GetAsync(BuildMethodName(method, parameters))
                     .Result;
-            }, authorizationHeader, httpMessageHandler);
+            }, authorizationHeader);
         }
 
         private static HttpResponseMessage InvokeMethod(
             string domain,
             Func<HttpClient, HttpResponseMessage> method,
             string authorizationHeader,
-            HttpMessageHandler httpMessageHandler,
             bool addApplicationJsonHeader = true)
         {
-            using (var client = GetHttpClient(httpMessageHandler))
+            using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri(domain);
 
@@ -214,14 +199,6 @@ namespace C4rm4x.Tools.HttpUtilities
 
                 return method(client);
             }
-        }
-
-        private static HttpClient GetHttpClient(
-            HttpMessageHandler httpMessageHandler)
-        {
-            return httpMessageHandler.IsNull()
-                ? new HttpClient()
-                : new HttpClient(httpMessageHandler);
         }
 
         private static void SetsHeaders(

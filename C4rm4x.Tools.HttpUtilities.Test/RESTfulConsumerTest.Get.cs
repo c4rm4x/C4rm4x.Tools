@@ -79,7 +79,7 @@ namespace C4rm4x.Tools.HttpUtilities.Test
             [TestMethod, IntegrationTest]
             public void Get_Returns_An_Instance_Of_Specified_Type()
             {
-                var result = RESTfulConsumer.Get<RootObject>(Domain, string.Empty, null, null,
+                var result = RESTfulConsumer.Get<RootObject>(Domain, string.Empty, null,
                     new KeyValuePair<string, object>("q", ObjectMother.Create<string>()),
                     new KeyValuePair<string, object>("type", "artist"));
 
