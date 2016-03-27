@@ -2,6 +2,8 @@
 
 using C4rm4x.Tools.HttpUtilities;
 using C4rm4x.Tools.Utilities;
+using Microsoft.Owin.Hosting;
+using Owin;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -17,7 +19,7 @@ namespace C4rm4x.Tools.TestUtilities.Internal
     /// </summary>
     internal class InMemoryHttpServer : IDisposable
     {
-        private HttpServer _httpServer;
+        private IDisposable _selfthostedWebApi;
 
         /// <summary>
         /// Gets the url this in-memory http server in bound to
@@ -40,22 +42,23 @@ namespace C4rm4x.Tools.TestUtilities.Internal
         public InMemoryHttpServer()
         {
             BaseUrl = ConfigurationManager.AppSettings["Acceptance.Test.Server.BaseUrl"];
-        }
-
-        /// <summary>
-        /// Configure the in-memory HttpServer configuration
-        /// </summary>
-        /// <param name="configurator">The HttpConfiguration configurator</param>
+        }     
+        
         public void Configure(Action<HttpConfiguration> configurator)
         {
-            var config = new HttpConfiguration();
+            configurator.NotNull(nameof(configurator));
 
-            config.IncludeErrorDetailPolicy = IncludeErrorDetailPolicy.Always;
+            _selfthostedWebApi = WebApp.Start(BaseUrl, appBuilder =>
+            {
+                var config = new HttpConfiguration();
 
-            configurator(config);
+                configurator(config);
 
-            _httpServer = new HttpServer(config);
-        }
+                config.IncludeErrorDetailPolicy = IncludeErrorDetailPolicy.Always;
+
+                appBuilder.UseWebApi(config);
+            });
+        }   
 
         /// <summary>
         /// Returns the Http response from a Get request
@@ -67,7 +70,7 @@ namespace C4rm4x.Tools.TestUtilities.Internal
             string method,
             params KeyValuePair<string, object>[] parameters)
         {
-            return RESTfulConsumer.Get(BaseUrl, method, SecurityToken, _httpServer, parameters);
+            return RESTfulConsumer.Get(BaseUrl, method, SecurityToken, parameters);
         }
 
         /// <summary>
@@ -82,7 +85,7 @@ namespace C4rm4x.Tools.TestUtilities.Internal
             params KeyValuePair<string, object>[] parameters)
             where T : class
         {
-            return RESTfulConsumer.Get<T>(BaseUrl, method, SecurityToken, _httpServer, parameters);
+            return RESTfulConsumer.Get<T>(BaseUrl, method, SecurityToken, parameters);
         }
 
         /// <summary>
@@ -97,7 +100,7 @@ namespace C4rm4x.Tools.TestUtilities.Internal
             params KeyValuePair<string, object>[] parameters)
             where T : class
         {
-            return RESTfulConsumer.GetAll<T>(BaseUrl, method, SecurityToken, _httpServer, parameters);
+            return RESTfulConsumer.GetAll<T>(BaseUrl, method, SecurityToken, parameters);
         }
 
         /// <summary>
@@ -112,7 +115,7 @@ namespace C4rm4x.Tools.TestUtilities.Internal
             string method)
             where T : class
         {
-            return RESTfulConsumer.Post(objectToSend, BaseUrl, method, SecurityToken, _httpServer);
+            return RESTfulConsumer.Post(objectToSend, BaseUrl, method, SecurityToken);
         }
 
         /// <summary>
@@ -129,7 +132,7 @@ namespace C4rm4x.Tools.TestUtilities.Internal
             params KeyValuePair<string, object>[] parameters)
             where T : class
         {
-            return RESTfulConsumer.Put(objectToSend, BaseUrl, method, SecurityToken, _httpServer, parameters);
+            return RESTfulConsumer.Put(objectToSend, BaseUrl, method, SecurityToken, parameters);
         }
 
         /// <summary>
@@ -142,7 +145,7 @@ namespace C4rm4x.Tools.TestUtilities.Internal
             string method,
             params KeyValuePair<string, object>[] parameters)
         {
-            return RESTfulConsumer.Delete(BaseUrl, method, SecurityToken, _httpServer, parameters);
+            return RESTfulConsumer.Delete(BaseUrl, method, SecurityToken, parameters);
         }
 
         /// <summary>
@@ -163,8 +166,8 @@ namespace C4rm4x.Tools.TestUtilities.Internal
         {
             if (IsDisposed) return;
 
-            if (_httpServer.IsNotNull())
-                _httpServer.Dispose();
+            if (_selfthostedWebApi.IsNotNull())
+                _selfthostedWebApi.Dispose();
 
             GC.SuppressFinalize(this);
 
