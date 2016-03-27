@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Net.Http;
-using System.Web;
 using System.Web.Http;
 
 #endregion
@@ -41,10 +40,6 @@ namespace C4rm4x.Tools.TestUtilities.Internal
         public InMemoryHttpServer()
         {
             BaseUrl = ConfigurationManager.AppSettings["Acceptance.Test.Server.BaseUrl"];
-
-            HttpContext.Current = new HttpContext(
-                new HttpRequest(null, BaseUrl, null),
-                new HttpResponse(null));
         }
 
         /// <summary>
@@ -167,8 +162,6 @@ namespace C4rm4x.Tools.TestUtilities.Internal
         public void Dispose()
         {
             if (IsDisposed) return;
-
-            HttpContext.Current = null;
 
             if (_httpServer.IsNotNull())
                 _httpServer.Dispose();
