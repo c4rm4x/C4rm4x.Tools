@@ -207,6 +207,14 @@ namespace C4rm4x.Tools.TestUtilities
         }
 
         /// <summary>
+        /// Given step to get a basic token
+        /// </summary>
+        protected void UserIsLoggedIn()
+        {
+            UserIsLoggedInAs();
+        }
+
+        /// <summary>
         /// Given step to get a token with the given role/permissions
         /// </summary>
         /// <param name="role"></param>

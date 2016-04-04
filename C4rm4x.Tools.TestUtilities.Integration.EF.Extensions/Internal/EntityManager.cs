@@ -1,8 +1,8 @@
 ﻿#region Using
 
 using System;
+using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
 
 #endregion
 
@@ -16,6 +16,7 @@ namespace C4rm4x.Tools.TestUtilities.Internal
         where C : DbContext
     {
         private readonly C _entities;
+        private readonly ICollection<object> _addedEntities; // I need to keep the history of the entities added
 
         /// <summary>
         /// Gets whether or not this instance has already been disposed
@@ -29,6 +30,7 @@ namespace C4rm4x.Tools.TestUtilities.Internal
         public EntityManager(C entities)
         {
             _entities = entities;
+            _addedEntities = new List<object>();
         }
 
         /// <summary>
@@ -40,6 +42,7 @@ namespace C4rm4x.Tools.TestUtilities.Internal
             where TEntity : class
         {
             _entities.Set<TEntity>().Add(entity);
+            _addedEntities.Add(entity);
         }
 
         /// <summary>
@@ -55,9 +58,8 @@ namespace C4rm4x.Tools.TestUtilities.Internal
         /// </summary>
         public void Restore()
         {
-            foreach (var entity in _entities.ChangeTracker.Entries()
-                .Where(e => e.State == EntityState.Added))
-                entity.State = EntityState.Deleted;
+            foreach (var entity in _addedEntities)
+                _entities.Entry(entity).State = EntityState.Deleted;
 
             SaveAllChanges(); // Enforces the entities to be delated
         }
@@ -70,6 +72,7 @@ namespace C4rm4x.Tools.TestUtilities.Internal
             if (IsDisposed) return;
 
             _entities.Dispose();
+            _addedEntities.Clear();
 
             GC.SuppressFinalize(this);
 
