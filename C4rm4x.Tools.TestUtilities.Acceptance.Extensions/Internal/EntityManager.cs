@@ -56,7 +56,7 @@ namespace C4rm4x.Tools.TestUtilities.Internal
         public void Restore()
         {
             foreach (var entity in _entities.ChangeTracker.Entries()
-                .Where(e => e.State != EntityState.Deleted))
+                .Where(e => e.State == EntityState.Added))
                 entity.State = EntityState.Deleted;
 
             SaveAllChanges(); // Enforces the entities to be delated
