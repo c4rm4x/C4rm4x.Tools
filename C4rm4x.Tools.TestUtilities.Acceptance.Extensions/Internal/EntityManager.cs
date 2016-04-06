@@ -42,6 +42,7 @@ namespace C4rm4x.Tools.TestUtilities.Internal
             where TEntity : class
         {
             _entities.Set<TEntity>().Add(entity);
+            _addedEntities.Add(entity);
         }
 
         /// <summary>
