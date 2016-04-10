@@ -36,6 +36,12 @@ namespace C4rm4x.Tools.Auditing.Comparators
             NullEquality = nullEquality;
         }
 
+        /// <summary>
+        /// Compares the two instances of string based on StringComparison
+        /// </summary>
+        /// <param name="original">The original value</param>
+        /// <param name="current">The current value</param>
+        /// <returns>True when both instances match based on StringComparison; false, otherwise</returns>
         public override bool Match(
             string original, 
             string current)

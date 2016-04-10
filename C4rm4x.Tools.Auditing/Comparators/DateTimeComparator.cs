@@ -32,6 +32,12 @@ namespace C4rm4x.Tools.Auditing.Comparators
             Format = format;
         }
 
+        /// <summary>
+        /// Compares the two instances of DateTime based on format
+        /// </summary>
+        /// <param name="original">The original value</param>
+        /// <param name="current">The current value</param>
+        /// <returns>True when both instances match based on format; false, otherwise</returns>
         public override bool Match(
             DateTime original, 
             DateTime current)

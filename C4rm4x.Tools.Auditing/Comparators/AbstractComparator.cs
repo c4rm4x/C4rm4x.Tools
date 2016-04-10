@@ -1,7 +1,7 @@
 ﻿namespace C4rm4x.Tools.Auditing.Comparators
 {
     /// <summary>
-    /// Base implementation of IComparator\<T\>
+    /// Base implementation of IComparator
     /// </summary>
     /// <typeparam name="T">The type to compare</typeparam>
     public abstract class AbstractComparator<T> :
