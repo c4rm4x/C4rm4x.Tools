@@ -16,13 +16,13 @@ namespace C4rm4x.Tools.HttpUtilities.Acl.Configuration
         /// <summary>
         /// Gets the collection of all the subscriptions
         /// </summary>
-        [ConfigurationProperty("Subscriptions", IsDefaultCollection = false)]
+        [ConfigurationProperty("subscriptions", IsDefaultCollection = false)]
         [ConfigurationCollection(typeof(SubscriptionCollection),
             AddItemName = "add",
             ClearItemsName = "clear")]
         public SubscriptionCollection Subscriptions
         {
-            get { return (SubscriptionCollection)base["Subscriptions"]; }
+            get { return (SubscriptionCollection)base["subscriptions"]; }
         }
     }
 
@@ -169,41 +169,41 @@ namespace C4rm4x.Tools.HttpUtilities.Acl.Configuration
         /// <summary>
         /// Gets or sets this subscription config within the collection
         /// </summary>
-        [ConfigurationProperty("Name", DefaultValue = "", IsKey = true, IsRequired = true)]
+        [ConfigurationProperty("name", DefaultValue = "", IsKey = true, IsRequired = true)]
         public string Name
         {
-            get { return (string)this["Name"]; }
-            set { this["Name"] = value; }
+            get { return (string)this["name"]; }
+            set { this["name"] = value; }
         }
 
         /// <summary>
         /// Gets or sets the base API url to be consumed
         /// </summary>
-        [ConfigurationProperty("BaseApiUrl", DefaultValue = "", IsKey = false, IsRequired = true)]
+        [ConfigurationProperty("baseApiUrl", DefaultValue = "", IsKey = false, IsRequired = true)]
         public string BaseApiUrl
         {
-            get { return (string)this["BaseApiUrl"]; }
-            set { this["BaseApiUrl"] = value; }
+            get { return (string)this["baseApiUrl"]; }
+            set { this["baseApiUrl"] = value; }
         }
 
         /// <summary>
         /// Gets or sets the subscriber identifier in the API
         /// </summary>
-        [ConfigurationProperty("SubscriberIdentifier", DefaultValue = "", IsKey = false, IsRequired = true)]
+        [ConfigurationProperty("subscriberIdentifier", DefaultValue = "", IsKey = false, IsRequired = true)]
         public string SubscriberIdentifier
         {
-            get { return (string)this["SubscriberIdentifier"]; }
-            set { this["SubscriberIdentifier"] = value; }
+            get { return (string)this["subscriberIdentifier"]; }
+            set { this["subscriberIdentifier"] = value; }
         }
 
         /// <summary>
         /// Gets or sets the shared secret between client and API (in base 64 format)
         /// </summary>
-        [ConfigurationProperty("SharedSecret", DefaultValue = "", IsKey = false, IsRequired = true)]
+        [ConfigurationProperty("sharedSecret", DefaultValue = "", IsKey = false, IsRequired = true)]
         public string SharedSecret
         {
-            get { return (string)this["SharedSecret"]; }
-            set { this["SharedSecret"] = value; }
+            get { return (string)this["sharedSecret"]; }
+            set { this["sharedSecret"] = value; }
         }
     }
 }

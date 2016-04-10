@@ -11,13 +11,12 @@ namespace C4rm4x.Tools.HttpUtilities.Acl
 {
     internal static class AclRESTfulConsumerExtensions
     {
-        private const string AclSubscriptionsSection = "SubscriptionsConfiguration";
+        private const string AclSubscriptionsSection = "subscriptionsConfiguration";
 
         public static AclRESTfulConsumerConfiguration GetClientConfiguration(
-            this AclRESTfulConsumer consumer,
-            string name)
+            this AclRESTfulConsumer consumer)
         {
-            var thisSubscriptionConfig = GetSubscriptionConfig(name);
+            var thisSubscriptionConfig = GetSubscriptionConfig(consumer.Name);
 
             return new AclRESTfulConsumerConfiguration(
                 thisSubscriptionConfig.BaseApiUrl,

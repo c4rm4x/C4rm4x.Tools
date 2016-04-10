@@ -20,6 +20,11 @@ namespace C4rm4x.Tools.HttpUtilities.Acl
         private AclRESTfulConsumerConfiguration Config => _config.Value;
 
         /// <summary>
+        /// Gets the subscription name
+        /// </summary>
+        public string Name { get; private set; }
+
+        /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="name">The consumer name</param>
@@ -27,8 +32,10 @@ namespace C4rm4x.Tools.HttpUtilities.Acl
         {
             name.NotNullOrEmpty(nameof(name));
 
+            Name = name;
+
             _config = new Lazy<AclRESTfulConsumerConfiguration>(() =>
-                this.GetClientConfiguration(name));
+                this.GetClientConfiguration());
         }
 
         /// <summary>
