@@ -1,15 +1,18 @@
 ﻿#region Using
 
+using C4rm4x.Tools.HttpUtilities;
 using C4rm4x.Tools.TestUtilities.Bdd;
 using C4rm4x.Tools.TestUtilities.Internal;
 using C4rm4x.Tools.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 using SimpleInjector;
 using SimpleInjector.Extensions.LifetimeScoping;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 
 #endregion
@@ -53,6 +56,7 @@ namespace C4rm4x.Tools.TestUtilities
         {
             SetupContainer();
             SetupHttpServer();
+            SetupHttpContext();
         }
 
         private void SetupContainer()
@@ -69,6 +73,12 @@ namespace C4rm4x.Tools.TestUtilities
         private void SetupHttpServer()
         {
             HttpServer.Configure(_configurator);
+        }
+
+        private void SetupHttpContext()
+        {
+            HttpContextFactory.SetCurrentContext(
+                Mock.Of<HttpContextBase>());
         }
 
         /// <summary>
