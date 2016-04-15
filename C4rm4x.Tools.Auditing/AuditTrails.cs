@@ -1,5 +1,6 @@
 ﻿#region Using
 
+using C4rm4x.Tools.Auditing.Comparators;
 using C4rm4x.Tools.Auditing.Internals;
 using C4rm4x.Tools.Utilities;
 using System;
@@ -130,7 +131,8 @@ namespace C4rm4x.Tools.Auditing
             if (comparator.IsNotNull())
                 return comparator.Match(originalValue, currentValue);
 
-            return originalValue == currentValue;
+            return new DefaultComparator(Configuration.NullObjectsAreEquals)
+                .Match(originalValue, currentValue);
         }
     }
 }

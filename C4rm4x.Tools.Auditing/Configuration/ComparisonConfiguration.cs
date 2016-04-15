@@ -26,6 +26,11 @@ namespace C4rm4x.Tools.Auditing
         public bool IgnorePrivateProperties { get; private set; }
 
         /// <summary>
+        /// Gets whether or not null objects are considered equal
+        /// </summary>
+        public bool NullObjectsAreEquals { get; private set; }
+
+        /// <summary>
         /// Gets the type that should be compared using their custom comparators
         /// </summary>
         public IEnumerable<Func<IComparator>> Comparators { get; private set; } =
@@ -36,14 +41,17 @@ namespace C4rm4x.Tools.Auditing
         /// </summary>
         /// <param name="ignoreInheritedProperties">Compare only declared properties (true by default)</param>
         /// <param name="ignorePrivateProperties">Compare only public properties (true by default)</param>
+        /// <param name="nullObjectsAreEquals">Determine whether or not null objects are equals</param>
         /// <param name="comparators">Custom comparators</param>
         public ComparisonConfiguration(
             bool ignoreInheritedProperties = true,
             bool ignorePrivateProperties = true,
+            bool nullObjectsAreEquals = true,
             params Func<IComparator>[] comparators)
         {
             IgnoreInheritedProperties = ignoreInheritedProperties;
             IgnorePrivateProperties = ignorePrivateProperties;
+            NullObjectsAreEquals = nullObjectsAreEquals;
 
             SetComparators(comparators);
         }

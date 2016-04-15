@@ -53,6 +53,7 @@
     <Compile Include="AuditTrails.cs" />
     <Compile Include="Comparators\AbstractComparator.cs" />
     <Compile Include="Comparators\DateTimeComparator.cs" />
+    <Compile Include="Comparators\DefaultComparator.cs" />
     <Compile Include="Comparators\StringComparator.cs" />
     <Compile Include="Configuration\ComparisonConfiguration.cs" />
     <Compile Include="Comparators\IComparator.cs" />
