@@ -59,7 +59,7 @@ namespace C4rm4x.Tools.TestUtilities.Internal
         public void Restore()
         {
             foreach (var entity in _addedEntities)
-                _entities.Entry(entity).State = EntityState.Deleted;
+                _entities.Set(entity.GetType()).Remove(entity);         
 
             SaveAllChanges(); // Enforces the entities to be delated
         }
