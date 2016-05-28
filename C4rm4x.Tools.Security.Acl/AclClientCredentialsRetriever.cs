@@ -30,9 +30,9 @@ namespace C4rm4x.Tools.Security.Acl
 
             credentials = null;
 
-            var authorizationAsBase64 = GetAuthorization(request.Headers);
+            var authorizationHeader = GetAuthorizationHeaderValue(request.Headers);
 
-            var authorization = ExtractCredentials(authorizationAsBase64);
+            var authorization = ExtractCredentials(authorizationHeader);
 
             if (authorization.Length != 2)
                 return false;
@@ -44,20 +44,20 @@ namespace C4rm4x.Tools.Security.Acl
             return true;
         }
 
-        private static string GetAuthorization(
+        private static AuthenticationHeaderValue GetAuthorizationHeaderValue(
             HttpRequestHeaders headers)
         {
-            return headers.Authorization.ToString();
+            return headers.Authorization;
         }
 
         private static string[] ExtractCredentials(
-            string authorizationAsBase64)
+            AuthenticationHeaderValue authorizationHeaderValue)
         {
-            if (authorizationAsBase64.IsNullOrEmpty())
+            if (authorizationHeaderValue.IsNull() ||
+                authorizationHeaderValue.Scheme != "Basic")
                 return new string[] { };
 
-            return authorizationAsBase64
-                .Replace("Basic ", string.Empty)
+            return authorizationHeaderValue.Parameter                
                 .FromBase64()
                 .Split(new[] { ":" }, StringSplitOptions.RemoveEmptyEntries);
         }
