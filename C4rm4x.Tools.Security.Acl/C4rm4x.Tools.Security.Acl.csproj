@@ -45,7 +45,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AclClientCredentialGenerator.cs" />
+    <Compile Include="AclClientCredentialsGenerator.cs" />
+    <Compile Include="AclClientCredentialsRetriever.cs" />
+    <Compile Include="AclClientCredentials.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

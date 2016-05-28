@@ -10,7 +10,7 @@ namespace C4rm4x.Tools.Security.Acl
     /// Acl credentials generator is responsible to generate a 
     /// base-64 basic authorization token
     /// </summary>
-    public class AclClientCredentialGenerator
+    public class AclClientCredentialsGenerator
     {
         /// <summary>
         /// Generates a valid base-64 basic authorization token
@@ -25,10 +25,26 @@ namespace C4rm4x.Tools.Security.Acl
             identifier.NotNullOrEmpty(nameof(identifier));
             secretAsBase64.NotNullOrEmpty(nameof(secretAsBase64));
 
+            return Generate(
+                new AclClientCredentials(
+                    identifier,
+                    secretAsBase64.FromBase64()));          
+        }
+
+        /// <summary>
+        /// Generates a valid base-64 basic authorization token
+        /// </summary>
+        /// <param name="credentials">The credentials (with secret as clear text)</param>
+        /// <returns></returns>
+        public string Generate(
+            AclClientCredentials credentials)
+        {
+            credentials.NotNull(nameof(credentials));
+
             return "Basic {0}".AsFormat(
                 GetBasicAuthorization(
-                    identifier, 
-                    secretAsBase64.FromBase64()));               
+                    credentials.Identifier,
+                    credentials.Secret));
         }
 
         private string GetBasicAuthorization(

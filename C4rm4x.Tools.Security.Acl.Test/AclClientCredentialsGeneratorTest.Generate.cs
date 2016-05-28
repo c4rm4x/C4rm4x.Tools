@@ -8,11 +8,11 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace C4rm4x.Tools.Security.Acl.Test
 {
-    public partial class AclClientCredentialGeneratorTest
+    public partial class AclClientCredentialsGeneratorTest
     {
         [TestClass]
-        public class AclClientCredentialGeneratorGenerateTest :
-            AutoMockFixture<AclClientCredentialGenerator>
+        public class AclClientCredentialsGeneratorGenerateTest :
+            AutoMockFixture<AclClientCredentialsGenerator>
         {
             [TestMethod, UnitTest]
             public void Generate_Returns_Authorization_Header_As_A_Basic_Encoded_As_Base64()
