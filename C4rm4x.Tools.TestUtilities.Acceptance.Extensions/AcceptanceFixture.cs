@@ -227,8 +227,8 @@ namespace C4rm4x.Tools.TestUtilities
         /// <summary>
         /// Given step to get a token with the given role/permissions
         /// </summary>
-        /// <param name="role"></param>
-        /// <param name="permissions"></param>
+        /// <param name="role">The role</param>
+        /// <param name="permissions">The set of permissions</param>
         protected void UserIsLoggedInAs(
             string role = null,
             params KeyValuePair<string, object>[] permissions)
@@ -236,6 +236,20 @@ namespace C4rm4x.Tools.TestUtilities
             var userIsLoggedInAsStep = new UserIsLoggedInAsStep(HttpServer);
 
             userIsLoggedInAsStep.TokenFor(role, permissions);
+        }
+
+        /// <summary>
+        /// Given step to get an authorization token with the given identifier/secret
+        /// </summary>
+        /// <param name="identifier">The identifier</param>
+        /// <param name="sharedSecret">The secret (as base-64)</param>
+        protected void ClientIsIdentifiedAs(
+            string identifier,
+            string sharedSecret)
+        {
+            var clientIsIdentifierAsStep = new ClientIsIdentifiedAsStep(HttpServer);
+
+            clientIsIdentifierAsStep.AuthorizationFor(identifier, sharedSecret);
         }
 
         /// <summary>

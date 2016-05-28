@@ -35,6 +35,10 @@
       <HintPath>..\packages\C4rm4x.Tools.HttpUtilities.2.0.0.0\lib\net452\C4rm4x.Tools.HttpUtilities.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="C4rm4x.Tools.Security.Acl, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\C4rm4x.Tools.Security.Acl.1.0.0.0\lib\net452\C4rm4x.Tools.Security.Acl.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="C4rm4x.Tools.Security.Jwt, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\C4rm4x.Tools.Security.Jwt.1.0.0.0\lib\net452\C4rm4x.Tools.Security.Jwt.dll</HintPath>
       <Private>True</Private>
@@ -124,6 +128,7 @@
     <Compile Include="Bdd\IThenDefinition.cs" />
     <Compile Include="Bdd\IWhenDefinition.cs" />
     <Compile Include="Bdd\IGivenDefinition.cs" />
+    <Compile Include="Internal\ClientIsIdentifiedAsStep.cs" />
     <Compile Include="Internal\EntityManager.cs" />
     <Compile Include="Internal\GivenWhenThen.cs" />
     <Compile Include="Internal\InMemoryHttpServer.cs" />

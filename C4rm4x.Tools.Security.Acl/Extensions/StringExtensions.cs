@@ -6,7 +6,7 @@ using System.Text;
 
 #endregion
 
-namespace C4rm4x.Tools.HttpUtilities.Acl
+namespace C4rm4x.Tools.Security.Acl
 {
     internal static class StringExtensions
     {

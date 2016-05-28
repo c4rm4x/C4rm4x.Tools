@@ -12,7 +12,7 @@ namespace C4rm4x.Tools.HttpUtilities.Acl.Configuration
 
         public string SubscriberIdentifier { get; private set; }
 
-        public string Secret { get; private set; }
+        public string SecretAsBase64 { get; private set; }
 
         public AclRESTfulConsumerConfiguration(
             string apiBaseUrl,
@@ -25,7 +25,7 @@ namespace C4rm4x.Tools.HttpUtilities.Acl.Configuration
 
             ApiBaseUrl = apiBaseUrl;
             SubscriberIdentifier = subscriberIdentifier;
-            Secret = secretAsBase64.FromBase64();
+            SecretAsBase64 = secretAsBase64;
         }
     }
 }

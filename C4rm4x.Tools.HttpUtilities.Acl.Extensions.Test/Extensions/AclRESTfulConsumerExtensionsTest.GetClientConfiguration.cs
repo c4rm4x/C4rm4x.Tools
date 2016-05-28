@@ -16,7 +16,7 @@ namespace C4rm4x.Tools.HttpUtilities.Acl.Test
         {
             private const string BaseApiUrl = "http://www.google.com";
             private const string SubscriberIdentifier = "TestSubscriber";
-            private const string SharedSecret = "hello";
+            private const string SharedSecret = "aGVsbG8=";
 
 
             [TestMethod, UnitTest]
@@ -54,7 +54,7 @@ namespace C4rm4x.Tools.HttpUtilities.Acl.Test
                     SharedSecret,
                     CreateSubjectUnderTest()
                         .GetClientConfiguration()
-                        .Secret);
+                        .SecretAsBase64);
             }
         }
     }

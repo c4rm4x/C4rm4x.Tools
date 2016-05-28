@@ -1,6 +1,7 @@
 ﻿#region Using
 
 using C4rm4x.Tools.HttpUtilities.Acl.Configuration;
+using C4rm4x.Tools.Security.Acl;
 using C4rm4x.Tools.Utilities;
 using System;
 using System.Configuration;
@@ -57,10 +58,8 @@ namespace C4rm4x.Tools.HttpUtilities.Acl
             this AclRESTfulConsumer consumer,
             AclRESTfulConsumerConfiguration config)
         {
-            return "Basic {0}".AsFormat(
-                "{0}:{1}".AsFormat(
-                    config.SubscriberIdentifier,
-                    config.Secret).AsBase64());
+            return new AclClientCredentialGenerator()
+                .Generate(config.SubscriberIdentifier, config.SecretAsBase64);
         }
     }
 }
