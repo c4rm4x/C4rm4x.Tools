@@ -128,7 +128,7 @@
     <Compile Include="Bdd\IThenDefinition.cs" />
     <Compile Include="Bdd\IWhenDefinition.cs" />
     <Compile Include="Bdd\IGivenDefinition.cs" />
-    <Compile Include="Internal\ClientIsIdentifiedAsStep.cs" />
+    <Compile Include="Internal\ClientIsIdentifiedWithStep.cs" />
     <Compile Include="Internal\EntityManager.cs" />
     <Compile Include="Internal\GivenWhenThen.cs" />
     <Compile Include="Internal\InMemoryHttpServer.cs" />

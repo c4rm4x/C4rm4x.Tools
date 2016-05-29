@@ -58,7 +58,7 @@ namespace C4rm4x.Tools.HttpUtilities.Acl
             this AclRESTfulConsumer consumer,
             AclRESTfulConsumerConfiguration config)
         {
-            return new AclClientCredentialGenerator()
+            return new AclClientCredentialsGenerator()
                 .Generate(config.SubscriberIdentifier, config.SecretAsBase64);
         }
     }

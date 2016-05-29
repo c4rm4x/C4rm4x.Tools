@@ -243,13 +243,13 @@ namespace C4rm4x.Tools.TestUtilities
         /// </summary>
         /// <param name="identifier">The identifier</param>
         /// <param name="sharedSecret">The secret (as base-64)</param>
-        protected void ClientIsIdentifiedAs(
+        protected void ClientIsIdentifiedWith(
             string identifier,
             string sharedSecret)
         {
-            var clientIsIdentifierAsStep = new ClientIsIdentifiedAsStep(HttpServer);
+            var clientIsIdentifierWithStep = new ClientIsIdentifiedWithStep(HttpServer);
 
-            clientIsIdentifierAsStep.AuthorizationFor(identifier, sharedSecret);
+            clientIsIdentifierWithStep.AuthorizationFor(identifier, sharedSecret);
         }
 
         /// <summary>

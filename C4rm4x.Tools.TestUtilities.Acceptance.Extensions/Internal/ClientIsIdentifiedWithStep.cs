@@ -10,7 +10,7 @@ namespace C4rm4x.Tools.TestUtilities.Internal
     /// <summary>
     /// Given-when-then step to generate an base-64 Basic authorization token with the given identifier/secret pair
     /// </summary>
-    internal class ClientIsIdentifiedAsStep
+    internal class ClientIsIdentifiedWithStep
     {
         /// <summary>
         /// Gets the Http server responsible to handle requests
@@ -21,7 +21,7 @@ namespace C4rm4x.Tools.TestUtilities.Internal
         /// Constructor
         /// </summary>
         /// <param name="httpServer">The Http server</param>
-        public ClientIsIdentifiedAsStep(InMemoryHttpServer httpServer)
+        public ClientIsIdentifiedWithStep(InMemoryHttpServer httpServer)
         {
             httpServer.NotNull(nameof(httpServer));
 
@@ -38,7 +38,7 @@ namespace C4rm4x.Tools.TestUtilities.Internal
             string identifier,
             string secret)
         {
-            var token = new AclClientCredentialGenerator()
+            var token = new AclClientCredentialsGenerator()
                 .Generate(identifier, secret);
 
             HttpServer.SetSecurityToken(token);

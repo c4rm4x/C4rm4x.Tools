@@ -30,9 +30,8 @@ namespace C4rm4x.Tools.Security.Acl
 
             credentials = null;
 
-            var authorizationHeader = GetAuthorizationHeaderValue(request.Headers);
-
-            var authorization = ExtractCredentials(authorizationHeader);
+            var authorization = 
+                ExtractCredentials(request.Headers.Authorization);
 
             if (authorization.Length != 2)
                 return false;
@@ -42,12 +41,6 @@ namespace C4rm4x.Tools.Security.Acl
                 authorization[1]);
 
             return true;
-        }
-
-        private static AuthenticationHeaderValue GetAuthorizationHeaderValue(
-            HttpRequestHeaders headers)
-        {
-            return headers.Authorization;
         }
 
         private static string[] ExtractCredentials(
