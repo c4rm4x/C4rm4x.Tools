@@ -37,6 +37,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C4rm4x.Tools.Security.Acl",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C4rm4x.Tools.Security.Acl.Test", "C4rm4x.Tools.Security.Acl.Test\C4rm4x.Tools.Security.Acl.Test.csproj", "{B9841E40-1E4F-48DF-B9FB-4344B04CB67A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C4rm4x.Tools.ServiceBus", "C4rm4x.Tools.ServiceBus\C4rm4x.Tools.ServiceBus.csproj", "{33E846AF-0A5B-47DC-821B-C8298837C89C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C4rm4x.Tools.ServiceBus.Test", "C4rm4x.Tools.ServiceBus.Test\C4rm4x.Tools.ServiceBus.Test.csproj", "{3058D4BB-9403-468B-A6A2-5A5AEA9867A6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -107,6 +111,14 @@ Global
 		{B9841E40-1E4F-48DF-B9FB-4344B04CB67A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B9841E40-1E4F-48DF-B9FB-4344B04CB67A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B9841E40-1E4F-48DF-B9FB-4344B04CB67A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33E846AF-0A5B-47DC-821B-C8298837C89C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33E846AF-0A5B-47DC-821B-C8298837C89C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33E846AF-0A5B-47DC-821B-C8298837C89C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33E846AF-0A5B-47DC-821B-C8298837C89C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3058D4BB-9403-468B-A6A2-5A5AEA9867A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3058D4BB-9403-468B-A6A2-5A5AEA9867A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3058D4BB-9403-468B-A6A2-5A5AEA9867A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3058D4BB-9403-468B-A6A2-5A5AEA9867A6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -118,5 +130,6 @@ Global
 		{69837B13-EEF8-4900-8021-FFA4C6CD7A9E} = {F252BFEA-9F85-4B29-8AB5-71F821A67E42}
 		{FBC16DCB-937B-42E3-8619-494D96135349} = {F252BFEA-9F85-4B29-8AB5-71F821A67E42}
 		{B9841E40-1E4F-48DF-B9FB-4344B04CB67A} = {F252BFEA-9F85-4B29-8AB5-71F821A67E42}
+		{3058D4BB-9403-468B-A6A2-5A5AEA9867A6} = {F252BFEA-9F85-4B29-8AB5-71F821A67E42}
 	EndGlobalSection
 EndGlobal
