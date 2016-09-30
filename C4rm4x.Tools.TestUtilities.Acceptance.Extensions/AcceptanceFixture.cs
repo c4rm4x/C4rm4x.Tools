@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Web;
 using System.Web.Http;
 
@@ -110,13 +111,15 @@ namespace C4rm4x.Tools.TestUtilities
         /// Returns the Http response from a Get request
         /// </summary>
         /// <param name="method">Method to execute to retrieve instance</param>
+        /// <param name="customHeaders">Custom headers to be added as part of request headers</param>
         /// <param name="parameters">Parameters to include as part of query string</param>
         /// <returns>Returns the HttpResponseMessage</returns>
         protected HttpResponseMessage Get(
             string method,
+            Action<HttpRequestHeaders> customHeaders = null,
             params KeyValuePair<string, object>[] parameters)
         {
-            return HttpServer.Get(method, parameters);
+            return HttpServer.Get(method, customHeaders, parameters);
         }
 
         /// <summary>
@@ -124,14 +127,16 @@ namespace C4rm4x.Tools.TestUtilities
         /// </summary>
         /// <typeparam name="T">The type of the instance</typeparam>
         /// <param name="method">Method to execute to retrieve instance</param>
+        /// <param name="customHeaders">Custom headers to be added as part of request headers</param>
         /// <param name="parameters">Parameters to include as part of query string</param>
         /// <returns>Returns the instance of type T if exists</returns>
         protected T Get<T>(
             string method,
+            Action<HttpRequestHeaders> customHeaders = null,
             params KeyValuePair<string, object>[] parameters)
             where T : class
         {
-            return HttpServer.Get<T>(method, parameters);
+            return HttpServer.Get<T>(method, customHeaders, parameters);
         }
 
         /// <summary>
@@ -139,14 +144,16 @@ namespace C4rm4x.Tools.TestUtilities
         /// </summary>
         /// <typeparam name="T">The type of the instance</typeparam>
         /// <param name="method">Method to execute to retrieve instance</param>
+        /// <param name="customHeaders">Custom headers to be added as part of request headers</param>
         /// <param name="parameters">Parameters to include as part of query string</param>
         /// <returns>Returns all the instance of type T</returns>
         protected IEnumerable<T> GetAll<T>(
             string method,
+            Action<HttpRequestHeaders> customHeaders = null,
             params KeyValuePair<string, object>[] parameters)
             where T : class
         {
-            return HttpServer.GetAll<T>(method, parameters);
+            return HttpServer.GetAll<T>(method, customHeaders, parameters);
         }
 
         /// <summary>
@@ -155,13 +162,17 @@ namespace C4rm4x.Tools.TestUtilities
         /// <typeparam name="T">The type of the instance</typeparam>
         /// <param name="objectToSend">Instance to send</param>
         /// <param name="method">Method to execute to send information</param>
+        /// <param name="customHeaders">Custom headers to be added as part of request headers</param>
+        /// <param name="parameters">Parameters to include as part of query string</param>
         /// <returns>Returns the HttpResponseMessage</returns>
         protected HttpResponseMessage Post<T>(
             T objectToSend,
-            string method)
+            string method,
+            Action<HttpRequestHeaders> customHeaders = null,
+            params KeyValuePair<string, object>[] parameters)
             where T : class
         {
-            return HttpServer.Post(objectToSend, method);
+            return HttpServer.Post(objectToSend, method, customHeaders, parameters);
         }
 
         /// <summary>
@@ -170,28 +181,32 @@ namespace C4rm4x.Tools.TestUtilities
         /// <typeparam name="T">The type of the instance</typeparam>
         /// <param name="objectToSend">Instance to send</param>
         /// <param name="method">Method to execute to send information</param>
+        /// <param name="customHeaders">Custom headers to be added as part of request headers</param>
         /// <param name="parameters">Parameters to include as part of query string</param>
         /// <returns>Returns the HttpResponseMessage</returns>
         protected HttpResponseMessage Put<T>(
             T objectToSend,
             string method,
+            Action<HttpRequestHeaders> customHeaders = null,
             params KeyValuePair<string, object>[] parameters)
             where T : class
         {
-            return HttpServer.Put(objectToSend, method, parameters);
+            return HttpServer.Put(objectToSend, method, customHeaders, parameters);
         }
 
         /// <summary>
         /// Sends a request as a Delete
         /// </summary>
         /// <param name="method">Method to execute to delete the information</param>
+        /// <param name="customHeaders">Custom headers to be added as part of request headers</param>
         /// <param name="parameters">Parameters to include as part of query string</param>
         /// <returns>Returns the HttpResponseMessage</returns>
         protected HttpResponseMessage Delete(
             string method,
+            Action<HttpRequestHeaders> customHeaders = null,
             params KeyValuePair<string, object>[] parameters)
         {
-            return HttpServer.Delete(method, parameters);
+            return HttpServer.Delete(method, customHeaders, parameters);
         }
 
         /// <summary>

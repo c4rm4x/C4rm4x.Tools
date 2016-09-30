@@ -21,16 +21,16 @@ namespace C4rm4x.Tools.HttpUtilities
         /// </summary>
         /// <param name="domain">Server domain to retrieve information from</param>
         /// <param name="method">Method to execute to retrieve instance</param>
-        /// <param name="authorizationHeader">The authorization header</param>
+        /// <param name="headers">Include headers to request</param>
         /// <param name="parameters">Parameters to include as part of query string</param>
         /// <returns>Returns the HttpResponseMessage</returns>
         public static HttpResponseMessage Get(
             string domain,
             string method = "",
-            string authorizationHeader = null,
+            Action<HttpRequestHeaders> headers = null,
             params KeyValuePair<string, object>[] parameters)
         {
-            return InvokeGet(domain, method, authorizationHeader, parameters);
+            return InvokeGet(domain, method, headers, parameters);
         }
 
         /// <summary>
@@ -39,17 +39,17 @@ namespace C4rm4x.Tools.HttpUtilities
         /// <typeparam name="T">Type of the instance to retrieve</typeparam>
         /// <param name="domain">Server domain to retrieve information from</param>
         /// <param name="method">Method to execute to retrieve instance</param>
-        /// <param name="authorizationHeader">The authorization header</param>
+        /// <param name="headers">Include headers to request</param>
         /// <param name="parameters">Parameters to include as part of query string</param>
         /// <returns>Returns an instance of type T if exists</returns>
         public static T Get<T>(
             string domain,
             string method = "",
-            string authorizationHeader = null,
+            Action<HttpRequestHeaders> headers = null,
             params KeyValuePair<string, object>[] parameters)
             where T : class
         {
-            return GetBy<T>(domain, method, authorizationHeader, parameters);
+            return GetBy<T>(domain, method, headers, parameters);
         }
 
         /// <summary>
@@ -58,26 +58,26 @@ namespace C4rm4x.Tools.HttpUtilities
         /// <typeparam name="T">Type of the instance to retrieve</typeparam>
         /// <param name="domain">Server domain to retrieve information from</param>
         /// <param name="method">Method to execute to retrieve instance</param>
-        /// <param name="authorizationHeader">The authorization header</param>
+        /// <param name="headers">Include headers to request</param>
         /// <param name="parameters">Parameters to include as part of query string</param>
         /// <returns>Returns the list of all the instances of type T if any</returns>
         public static IEnumerable<T> GetAll<T>(
             string domain,
             string method = "",
-            string authorizationHeader = null,
+            Action<HttpRequestHeaders> headers = null,
             params KeyValuePair<string, object>[] parameters)
             where T : class
         {
-            return GetBy<List<T>>(domain, method, authorizationHeader, parameters);
+            return GetBy<List<T>>(domain, method, headers, parameters);
         }
 
         private static TResult GetBy<TResult>(
             string domain,
             string method,
-            string authorizationHeader,            
+            Action<HttpRequestHeaders> headers = null,
             params KeyValuePair<string, object>[] parameters)
         {
-            return InvokeGet(domain, method, authorizationHeader, parameters)
+            return InvokeGet(domain, method, headers, parameters)
                 .EnsureSuccessStatusCode()
                 .Content
                 .ReadAsAsync<TResult>()
@@ -91,14 +91,14 @@ namespace C4rm4x.Tools.HttpUtilities
         /// <param name="objectToSend">Object of type T to be sent</param>
         /// <param name="domain">Server domain to send information to</param>
         /// <param name="method">Method to execute to send information</param>
-        /// <param name="authorizationHeader">The authorization header</param>        
+        /// <param name="headers">Include headers to request</param>
         /// <param name="parameters">Parameters to include as part of query string</param>
         /// <returns>Returns the HttpResponseMessage</returns>
         public static HttpResponseMessage Post<T>(
             T objectToSend,
             string domain,
             string method = "",
-            string authorizationHeader = null,
+            Action<HttpRequestHeaders> headers = null,
             params KeyValuePair<string, object>[] parameters)
             where T : class
         {
@@ -107,7 +107,7 @@ namespace C4rm4x.Tools.HttpUtilities
                 return client
                     .PostAsJsonAsync(BuildMethodName(method, parameters), objectToSend)
                     .Result;
-            }, authorizationHeader);
+            }, headers);
         }
 
         /// <summary>
@@ -117,14 +117,14 @@ namespace C4rm4x.Tools.HttpUtilities
         /// <param name="objectToSend">Object of type T to be sent</param>
         /// <param name="domain">Server domain to send information to</param>
         /// <param name="method">Method to execute to send information</param>
-        /// <param name="authorizationHeader">The authorization header</param>
+        /// <param name="headers">Include headers to request</param>
         /// <param name="parameters">Parameters to include as part of query string</param>
         /// <returns>Returns the HttpResponseMessage</returns>
         public static HttpResponseMessage Put<T>(
             T objectToSend,
             string domain,
             string method = "",
-            string authorizationHeader = null,
+            Action<HttpRequestHeaders> headers = null,
             params KeyValuePair<string, object>[] parameters)
             where T : class
         {
@@ -133,7 +133,7 @@ namespace C4rm4x.Tools.HttpUtilities
                 return client
                     .PutAsJsonAsync(BuildMethodName(method, parameters), objectToSend)
                     .Result;
-            }, authorizationHeader);
+            }, headers);
         }
 
         /// <summary>
@@ -141,13 +141,13 @@ namespace C4rm4x.Tools.HttpUtilities
         /// </summary>
         /// <param name="domain">Server domain to delete information from</param>
         /// <param name="method">Method to execute to delete the info</param>
-        /// <param name="authorizationHeader">The authorization header</param>        
+        /// <param name="headers">Include headers to request</param>
         /// <param name="parameters">Parameters to include as part of query string</param>
         /// <returns>Returns the HttpResponseMessage</returns>
         public static HttpResponseMessage Delete(
             string domain,
             string method = "",
-            string authorizationHeader = null,
+            Action<HttpRequestHeaders> headers = null,
             params KeyValuePair<string, object>[] parameters)
         {
             return InvokeMethod(domain, client =>
@@ -155,7 +155,7 @@ namespace C4rm4x.Tools.HttpUtilities
                 return client
                     .DeleteAsync(BuildMethodName(method, parameters))
                     .Result;
-            }, authorizationHeader);
+            }, headers);
         }
 
         private static string BuildMethodName(
@@ -174,28 +174,28 @@ namespace C4rm4x.Tools.HttpUtilities
         private static HttpResponseMessage InvokeGet(
             string domain,
             string method,
-            string authorizationHeader,
-            KeyValuePair<string, object>[] parameters)
+            Action<HttpRequestHeaders> headers = null,
+            params KeyValuePair<string, object>[] parameters)
         {
             return InvokeMethod(domain, client =>
             {
                 return client
                     .GetAsync(BuildMethodName(method, parameters))
                     .Result;
-            }, authorizationHeader);
+            }, headers);
         }
 
         private static HttpResponseMessage InvokeMethod(
             string domain,
             Func<HttpClient, HttpResponseMessage> method,
-            string authorizationHeader,
+            Action<HttpRequestHeaders> headers = null,
             bool addApplicationJsonHeader = true)
         {
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri(domain);
 
-                SetsHeaders(client, addApplicationJsonHeader, authorizationHeader);
+                SetsHeaders(client, addApplicationJsonHeader, headers);
 
                 return method(client);
             }
@@ -204,10 +204,12 @@ namespace C4rm4x.Tools.HttpUtilities
         private static void SetsHeaders(
             HttpClient client,
             bool addApplicationJsonHeader,
-            string jsonWebToken = null)
+            Action<HttpRequestHeaders> headers = null)
         {
             SetAcceptHeader(client, addApplicationJsonHeader);
-            SetAuthorizationHeader(client, jsonWebToken);
+
+            if (headers.IsNotNull())
+                headers(client.DefaultRequestHeaders);
         }
 
         private static void SetAcceptHeader(
@@ -222,16 +224,6 @@ namespace C4rm4x.Tools.HttpUtilities
 
             client.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue(ApplicationJson));
-        }
-
-        private static void SetAuthorizationHeader(
-            HttpClient client, 
-            string authorizationHeader)
-        {
-            if (authorizationHeader.IsNullOrEmpty()) return;
-
-            client.DefaultRequestHeaders.Authorization =
-                AuthenticationHeaderValue.Parse(authorizationHeader);
-        }
+        }        
     }
 }

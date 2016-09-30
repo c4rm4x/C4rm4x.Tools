@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Web.Http;
 
 #endregion
@@ -32,7 +33,7 @@ namespace C4rm4x.Tools.TestUtilities.Internal
         public bool IsDisposed { get; private set; }
 
         /// <summary>
-        /// Gets the security token to be included with each request
+        /// Gets the security token to be added as request Authorization header
         /// </summary>
         public string SecurityToken { get; private set; }
 
@@ -41,9 +42,9 @@ namespace C4rm4x.Tools.TestUtilities.Internal
         /// </summary>
         public InMemoryHttpServer()
         {
-            BaseUrl = ConfigurationManager.AppSettings["Acceptance.Test.Server.BaseUrl"];
-        }     
-        
+            BaseUrl = ConfigurationManager.AppSettings["Acceptance.Test.Server.BaseUrl"];            
+        }
+
         public void Configure(Action<HttpConfiguration> configurator)
         {
             configurator.NotNull(nameof(configurator));
@@ -58,19 +59,21 @@ namespace C4rm4x.Tools.TestUtilities.Internal
 
                 appBuilder.UseWebApi(config);
             });
-        }   
+        }
 
         /// <summary>
         /// Returns the Http response from a Get request
         /// </summary>
         /// <param name="method">Method to execute to retrieve instance</param>
+        /// <param name="customHeaders">Custom headers to be added as part of request headers</param>
         /// <param name="parameters">Parameters to include as part of query string</param>
         /// <returns>Returns the HttpResponseMessage</returns>
         public HttpResponseMessage Get(
             string method,
+            Action<HttpRequestHeaders> customHeaders = null,
             params KeyValuePair<string, object>[] parameters)
         {
-            return RESTfulConsumer.Get(BaseUrl, method, SecurityToken, parameters);
+            return RESTfulConsumer.Get(BaseUrl, method, IncludeAllHeaders(customHeaders), parameters);
         }
 
         /// <summary>
@@ -78,14 +81,16 @@ namespace C4rm4x.Tools.TestUtilities.Internal
         /// </summary>
         /// <typeparam name="T">The type of the instance</typeparam>
         /// <param name="method">Method to execute to retrieve instance</param>
+        /// <param name="customHeaders">Custom headers to be added as part of request headers</param>
         /// <param name="parameters">Parameters to include as part of query string</param>
         /// <returns>Returns the instance of type T if exists</returns>
         public T Get<T>(
             string method,
+            Action<HttpRequestHeaders> customHeaders = null,
             params KeyValuePair<string, object>[] parameters)
             where T : class
         {
-            return RESTfulConsumer.Get<T>(BaseUrl, method, SecurityToken, parameters);
+            return RESTfulConsumer.Get<T>(BaseUrl, method, IncludeAllHeaders(customHeaders), parameters);
         }
 
         /// <summary>
@@ -93,14 +98,16 @@ namespace C4rm4x.Tools.TestUtilities.Internal
         /// </summary>
         /// <typeparam name="T">The type of the instance</typeparam>
         /// <param name="method">Method to execute to retrieve instance</param>
+        /// <param name="customHeaders">Custom headers to be added as part of request headers</param>
         /// <param name="parameters">Parameters to include as part of query string</param>
         /// <returns>Returns all the instance of type T</returns>
         public IEnumerable<T> GetAll<T>(
             string method,
+            Action<HttpRequestHeaders> customHeaders = null,
             params KeyValuePair<string, object>[] parameters)
             where T : class
         {
-            return RESTfulConsumer.GetAll<T>(BaseUrl, method, SecurityToken, parameters);
+            return RESTfulConsumer.GetAll<T>(BaseUrl, method, IncludeAllHeaders(customHeaders), parameters);
         }
 
         /// <summary>
@@ -109,13 +116,17 @@ namespace C4rm4x.Tools.TestUtilities.Internal
         /// <typeparam name="T">The type of the instance</typeparam>
         /// <param name="objectToSend">Instance to send</param>
         /// <param name="method">Method to execute to send information</param>
+        /// <param name="customHeaders">Custom headers to be added as part of request headers</param>
+        /// <param name="parameters">Parameters to include as part of query string</param>
         /// <returns>Returns the HttpResponseMessage</returns>
         public HttpResponseMessage Post<T>(
             T objectToSend,
-            string method)
+            string method,
+            Action<HttpRequestHeaders> customHeaders = null,
+            params KeyValuePair<string, object>[] parameters)
             where T : class
         {
-            return RESTfulConsumer.Post(objectToSend, BaseUrl, method, SecurityToken);
+            return RESTfulConsumer.Post(objectToSend, BaseUrl, method, IncludeAllHeaders(customHeaders), parameters);
         }
 
         /// <summary>
@@ -124,28 +135,52 @@ namespace C4rm4x.Tools.TestUtilities.Internal
         /// <typeparam name="T">The type of the instance</typeparam>
         /// <param name="objectToSend">Instance to send</param>
         /// <param name="method">Method to execute to send information</param>
+        /// <param name="customHeaders">Custom headers to be added as part of request headers</param>
         /// <param name="parameters">Parameters to include as part of query string</param>
         /// <returns>Returns the HttpResponseMessage</returns>
         public HttpResponseMessage Put<T>(
             T objectToSend,
             string method,
+            Action<HttpRequestHeaders> customHeaders = null,
             params KeyValuePair<string, object>[] parameters)
             where T : class
         {
-            return RESTfulConsumer.Put(objectToSend, BaseUrl, method, SecurityToken, parameters);
+            return RESTfulConsumer.Put(objectToSend, BaseUrl, method, IncludeAllHeaders(customHeaders), parameters);
         }
 
         /// <summary>
         /// Sends a request as a Delete
         /// </summary>
         /// <param name="method">Method to execute to delete information</param>
+        /// <param name="customHeaders">Custom headers to be added as part of request headers</param>
         /// <param name="parameters">Parameters to include as part of query string</param>
         /// <returns>Returns the HttpResponseMessage</returns>
         public HttpResponseMessage Delete(
             string method,
+            Action<HttpRequestHeaders> customHeaders = null,
             params KeyValuePair<string, object>[] parameters)
         {
-            return RESTfulConsumer.Delete(BaseUrl, method, SecurityToken, parameters);
+            return RESTfulConsumer.Delete(BaseUrl, method, IncludeAllHeaders(customHeaders), parameters);
+        }
+
+        private Action<HttpRequestHeaders> IncludeAllHeaders(Action<HttpRequestHeaders> customHeader = null)
+        {
+            var allHeaders = new List<Action<HttpRequestHeaders>>();
+
+            if (!SecurityToken.IsNullOrEmpty())
+                allHeaders.Add(RequestHeaderFactory.AddAuthorization(SecurityToken));
+
+            if (customHeader.IsNotNull())
+                allHeaders.Add(customHeader);
+
+            if (allHeaders.IsNullOrEmpty())
+                return null;
+
+            return httpRequestHeaders =>
+            {
+                foreach (var header in allHeaders)
+                    header(httpRequestHeaders);
+            };
         }
 
         /// <summary>

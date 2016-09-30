@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="HttpContextFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RequestHeaderFactory.cs" />
     <Compile Include="RESTfulConsumer.cs" />
   </ItemGroup>
   <ItemGroup>
