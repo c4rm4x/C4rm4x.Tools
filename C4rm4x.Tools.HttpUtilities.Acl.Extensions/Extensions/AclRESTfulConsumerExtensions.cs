@@ -5,6 +5,7 @@ using C4rm4x.Tools.Security.Acl;
 using C4rm4x.Tools.Utilities;
 using System;
 using System.Configuration;
+using System.Net.Http.Headers;
 
 #endregion
 
@@ -54,12 +55,13 @@ namespace C4rm4x.Tools.HttpUtilities.Acl
             return section;
         }
 
-        public static string GetAuthorizationHeader(
+        public static Action<HttpRequestHeaders> GetAuthorizationHeader(
             this AclRESTfulConsumer consumer,
             AclRESTfulConsumerConfiguration config)
         {
-            return new AclClientCredentialsGenerator()
-                .Generate(config.SubscriberIdentifier, config.SecretAsBase64);
+            return RequestHeaderFactory.AddAuthorization(
+                new AclClientCredentialsGenerator()
+                    .Generate(config.SubscriberIdentifier, config.SecretAsBase64));
         }
     }
 }
