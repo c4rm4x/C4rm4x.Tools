@@ -1,6 +1,7 @@
 ﻿#region Using
 
 using C4rm4x.Tools.Utilities;
+using C4rM4x.Tools.Messaging;
 using Microsoft.ServiceBus.Messaging;
 using System;
 
@@ -25,10 +26,19 @@ namespace C4rm4x.Tools.ServiceBus
             var brokeredMessage = new BrokeredMessage(content);
 
             brokeredMessage.Label = "{0}_{1}".AsFormat(typeof(TContent).Name, DateTime.UtcNow.ToString("yyyyMMddHHmmss"));
-            brokeredMessage.MessageId = Guid.NewGuid().ToString();
+            brokeredMessage.MessageId = GetMessageId(content);
             brokeredMessage.ContentType = typeof(TContent).AssemblyQualifiedName;
 
             return brokeredMessage;
+        }
+
+        private static string GetMessageId<TContent>(TContent content)
+        {
+            var contentAsMessageDescriptor = content as IMessageDescriptor;
+
+            return contentAsMessageDescriptor.IsNotNull()
+                ? contentAsMessageDescriptor.GetMessageId()
+                : Guid.NewGuid().ToString();
         }
 
         /// <summary>

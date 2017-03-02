@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C4rm4x.Tools.Utilities", "C4rm4x.Tools.Utilities\C4rm4x.Tools.Utilities.csproj", "{FA3BAA38-4659-4EA0-AB24-98DF3DA09F7F}"
 EndProject
@@ -40,6 +40,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C4rm4x.Tools.ServiceBus", "C4rm4x.Tools.ServiceBus\C4rm4x.Tools.ServiceBus.csproj", "{33E846AF-0A5B-47DC-821B-C8298837C89C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C4rm4x.Tools.ServiceBus.Test", "C4rm4x.Tools.ServiceBus.Test\C4rm4x.Tools.ServiceBus.Test.csproj", "{3058D4BB-9403-468B-A6A2-5A5AEA9867A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C4rM4x.Tools.Messaging", "C4rM4x.Tools.Messaging\C4rM4x.Tools.Messaging.csproj", "{8D5EFB0A-4ADC-4E8E-9796-2EAC5D1E3C92}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -119,6 +121,10 @@ Global
 		{3058D4BB-9403-468B-A6A2-5A5AEA9867A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3058D4BB-9403-468B-A6A2-5A5AEA9867A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3058D4BB-9403-468B-A6A2-5A5AEA9867A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D5EFB0A-4ADC-4E8E-9796-2EAC5D1E3C92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D5EFB0A-4ADC-4E8E-9796-2EAC5D1E3C92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D5EFB0A-4ADC-4E8E-9796-2EAC5D1E3C92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D5EFB0A-4ADC-4E8E-9796-2EAC5D1E3C92}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

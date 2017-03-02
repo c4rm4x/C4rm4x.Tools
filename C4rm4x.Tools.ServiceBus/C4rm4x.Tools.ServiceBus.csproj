@@ -32,6 +32,10 @@
     <DocumentationFile>bin\Release\C4rm4x.Tools.ServiceBus.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="C4rM4x.Tools.Messaging, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\C4rM4x.Tools.Messaging.1.0.0.0\lib\net452\C4rM4x.Tools.Messaging.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="C4rm4x.Tools.Utilities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\C4rm4x.Tools.Utilities.1.0.0.0\lib\net452\C4rm4x.Tools.Utilities.dll</HintPath>
       <Private>True</Private>
