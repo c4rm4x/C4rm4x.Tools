@@ -1,4 +1,4 @@
-﻿namespace C4rM4x.Tools.Messaging
+﻿namespace C4rm4x.Tools.Messaging
 {
     public interface IMessageDescriptor
     {

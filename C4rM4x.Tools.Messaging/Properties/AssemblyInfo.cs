@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("C4rM4x.Tools.Messaging")]
+[assembly: AssemblyTitle("C4rm4x.Tools.Messaging")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("]C4rM4X[")]
-[assembly: AssemblyProduct("C4rM4x.Tools.Messaging")]
+[assembly: AssemblyProduct("C4rm4x.Tools.Messaging")]
 [assembly: AssemblyCopyright("Copyright © ]C4rM4X[ 2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

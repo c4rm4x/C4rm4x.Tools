@@ -7,8 +7,8 @@
     <ProjectGuid>{8D5EFB0A-4ADC-4E8E-9796-2EAC5D1E3C92}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>C4rM4x.Tools.Messaging</RootNamespace>
-    <AssemblyName>C4rM4x.Tools.Messaging</AssemblyName>
+    <RootNamespace>C4rm4x.Tools.Messaging</RootNamespace>
+    <AssemblyName>C4rm4x.Tools.Messaging</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

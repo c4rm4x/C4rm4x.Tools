@@ -1,7 +1,7 @@
 ﻿#region Using
 
 using C4rm4x.Tools.Utilities;
-using C4rM4x.Tools.Messaging;
+using C4rm4x.Tools.Messaging;
 using Microsoft.ServiceBus.Messaging;
 using System;
 
