@@ -41,7 +41,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C4rm4x.Tools.ServiceBus", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C4rm4x.Tools.ServiceBus.Test", "C4rm4x.Tools.ServiceBus.Test\C4rm4x.Tools.ServiceBus.Test.csproj", "{3058D4BB-9403-468B-A6A2-5A5AEA9867A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C4rm4x.Tools.Messaging", "C4rM4x.Tools.Messaging\C4rm4x.Tools.Messaging.csproj", "{8D5EFB0A-4ADC-4E8E-9796-2EAC5D1E3C92}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C4rm4x.Tools.Messaging", "C4rm4x.Tools.Messaging\C4rm4x.Tools.Messaging.csproj", "{8D5EFB0A-4ADC-4E8E-9796-2EAC5D1E3C92}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
