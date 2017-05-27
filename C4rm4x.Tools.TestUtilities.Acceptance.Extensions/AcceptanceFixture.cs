@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 
@@ -114,12 +115,12 @@ namespace C4rm4x.Tools.TestUtilities
         /// <param name="customHeaders">Custom headers to be added as part of request headers</param>
         /// <param name="parameters">Parameters to include as part of query string</param>
         /// <returns>Returns the HttpResponseMessage</returns>
-        protected HttpResponseMessage Get(
+        protected async Task<HttpResponseMessage> GetAsync(
             string method,
             Action<HttpRequestHeaders> customHeaders = null,
             params KeyValuePair<string, object>[] parameters)
         {
-            return HttpServer.Get(method, customHeaders, parameters);
+            return await HttpServer.GetAsync(method, customHeaders, parameters);
         }
 
         /// <summary>
@@ -130,13 +131,13 @@ namespace C4rm4x.Tools.TestUtilities
         /// <param name="customHeaders">Custom headers to be added as part of request headers</param>
         /// <param name="parameters">Parameters to include as part of query string</param>
         /// <returns>Returns the instance of type T if exists</returns>
-        protected T Get<T>(
+        protected async Task<T> GetAsync<T>(
             string method,
             Action<HttpRequestHeaders> customHeaders = null,
             params KeyValuePair<string, object>[] parameters)
             where T : class
         {
-            return HttpServer.Get<T>(method, customHeaders, parameters);
+            return await HttpServer.GetAsync<T>(method, customHeaders, parameters);
         }
 
         /// <summary>
@@ -147,13 +148,13 @@ namespace C4rm4x.Tools.TestUtilities
         /// <param name="customHeaders">Custom headers to be added as part of request headers</param>
         /// <param name="parameters">Parameters to include as part of query string</param>
         /// <returns>Returns all the instance of type T</returns>
-        protected IEnumerable<T> GetAll<T>(
+        protected async Task<IEnumerable<T>> GetAllAsync<T>(
             string method,
             Action<HttpRequestHeaders> customHeaders = null,
             params KeyValuePair<string, object>[] parameters)
             where T : class
         {
-            return HttpServer.GetAll<T>(method, customHeaders, parameters);
+            return await HttpServer.GetAllAsync<T>(method, customHeaders, parameters);
         }
 
         /// <summary>
@@ -165,14 +166,14 @@ namespace C4rm4x.Tools.TestUtilities
         /// <param name="customHeaders">Custom headers to be added as part of request headers</param>
         /// <param name="parameters">Parameters to include as part of query string</param>
         /// <returns>Returns the HttpResponseMessage</returns>
-        protected HttpResponseMessage Post<T>(
+        protected async Task<HttpResponseMessage> PostAsync<T>(
             T objectToSend,
             string method,
             Action<HttpRequestHeaders> customHeaders = null,
             params KeyValuePair<string, object>[] parameters)
             where T : class
         {
-            return HttpServer.Post(objectToSend, method, customHeaders, parameters);
+            return await HttpServer.PostAsync(objectToSend, method, customHeaders, parameters);
         }
 
         /// <summary>
@@ -184,14 +185,14 @@ namespace C4rm4x.Tools.TestUtilities
         /// <param name="customHeaders">Custom headers to be added as part of request headers</param>
         /// <param name="parameters">Parameters to include as part of query string</param>
         /// <returns>Returns the HttpResponseMessage</returns>
-        protected HttpResponseMessage Put<T>(
+        protected async Task<HttpResponseMessage> PutAsync<T>(
             T objectToSend,
             string method,
             Action<HttpRequestHeaders> customHeaders = null,
             params KeyValuePair<string, object>[] parameters)
             where T : class
         {
-            return HttpServer.Put(objectToSend, method, customHeaders, parameters);
+            return await HttpServer.PutAsync(objectToSend, method, customHeaders, parameters);
         }
 
         /// <summary>
@@ -201,12 +202,12 @@ namespace C4rm4x.Tools.TestUtilities
         /// <param name="customHeaders">Custom headers to be added as part of request headers</param>
         /// <param name="parameters">Parameters to include as part of query string</param>
         /// <returns>Returns the HttpResponseMessage</returns>
-        protected HttpResponseMessage Delete(
+        protected async Task<HttpResponseMessage> DeleteAsync(
             string method,
             Action<HttpRequestHeaders> customHeaders = null,
             params KeyValuePair<string, object>[] parameters)
         {
-            return HttpServer.Delete(method, customHeaders, parameters);
+            return await HttpServer.DeleteAsync(method, customHeaders, parameters);
         }
 
         /// <summary>

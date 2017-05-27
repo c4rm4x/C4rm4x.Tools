@@ -70,8 +70,8 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RESTfulConsumerTest.cs" />
-    <Compile Include="RESTfulConsumerTest.Get.cs" />
-    <Compile Include="RESTfulConsumerTest.GetAll.cs" />
+    <Compile Include="RESTfulConsumerTest.GetAsync.cs" />
+    <Compile Include="RESTfulConsumerTest.GetAllAsync.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\C4rm4x.Tools.HttpUtilities\C4rm4x.Tools.HttpUtilities.csproj">

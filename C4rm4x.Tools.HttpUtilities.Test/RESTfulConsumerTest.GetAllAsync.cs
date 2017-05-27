@@ -4,6 +4,7 @@ using C4rm4x.Tools.TestUtilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 #endregion
 
@@ -65,9 +66,9 @@ namespace C4rm4x.Tools.HttpUtilities.Test
             #endregion
 
             [TestMethod, IntegrationTest]
-            public void GetAll_Returns_All_The_Instances_Of_Specified_Type()
+            public async Task GetAllAsync_Returns_All_The_Instances_Of_Specified_Type()
             {
-                var result = RESTfulConsumer.GetAll<Country>(Domain, All);
+                var result = await RESTfulConsumer.GetAllAsync<Country>(Domain, All);
 
                 Assert.IsNotNull(result);
                 Assert.IsTrue(result.Any());

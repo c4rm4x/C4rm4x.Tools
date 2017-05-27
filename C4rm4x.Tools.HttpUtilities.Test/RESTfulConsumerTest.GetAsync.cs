@@ -3,6 +3,7 @@
 using C4rm4x.Tools.TestUtilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 #endregion
 
@@ -77,9 +78,9 @@ namespace C4rm4x.Tools.HttpUtilities.Test
             #endregion
 
             [TestMethod, IntegrationTest]
-            public void Get_Returns_An_Instance_Of_Specified_Type()
+            public async Task GetAsync_Returns_An_Instance_Of_Specified_Type()
             {
-                var result = RESTfulConsumer.Get<RootObject>(Domain, string.Empty, null,
+                var result = await RESTfulConsumer.GetAsync<RootObject>(Domain, string.Empty, null,
                     new KeyValuePair<string, object>("q", ObjectMother.Create<string>()),
                     new KeyValuePair<string, object>("type", "artist"));
 
