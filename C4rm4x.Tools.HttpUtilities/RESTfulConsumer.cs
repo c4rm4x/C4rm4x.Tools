@@ -104,11 +104,10 @@ namespace C4rm4x.Tools.HttpUtilities
             params KeyValuePair<string, object>[] parameters)
             where T : class
         {
-            return await InvokeMethodAsync(domain, client =>
-            {
-                return client
-                    .PostAsJsonAsync(BuildMethodName(method, parameters), objectToSend);
-            }, headers);
+            return await InvokeMethodAsync(
+                domain, 
+                client => client.PostAsJsonAsync(BuildMethodName(method, parameters), objectToSend), 
+                headers);
         }
 
         /// <summary>
@@ -129,11 +128,10 @@ namespace C4rm4x.Tools.HttpUtilities
             params KeyValuePair<string, object>[] parameters)
             where T : class
         {
-            return await InvokeMethodAsync(domain, client =>
-            {
-                return client
-                    .PutAsJsonAsync(BuildMethodName(method, parameters), objectToSend);
-            }, headers);
+            return await InvokeMethodAsync(
+                domain, 
+                client => client.PutAsJsonAsync(BuildMethodName(method, parameters), objectToSend),
+                headers);
         }
 
         /// <summary>
@@ -150,11 +148,10 @@ namespace C4rm4x.Tools.HttpUtilities
             Action<HttpRequestHeaders> headers = null,
             params KeyValuePair<string, object>[] parameters)
         {
-            return await InvokeMethodAsync(domain, client =>
-            {
-                return client
-                    .DeleteAsync(BuildMethodName(method, parameters));
-            }, headers);
+            return await InvokeMethodAsync(
+                domain, 
+                client => client .DeleteAsync(BuildMethodName(method, parameters)),
+                headers);
         }
 
         private static string BuildMethodName(
@@ -176,11 +173,10 @@ namespace C4rm4x.Tools.HttpUtilities
             Action<HttpRequestHeaders> headers = null,
             params KeyValuePair<string, object>[] parameters)
         {
-            return await InvokeMethodAsync(domain, client =>
-            {
-                return client
-                    .GetAsync(BuildMethodName(method, parameters));
-            }, headers);
+            return await InvokeMethodAsync(
+                domain, 
+                client => client.GetAsync(BuildMethodName(method, parameters)), 
+                headers);
         }
 
         private static async Task<HttpResponseMessage> InvokeMethodAsync(

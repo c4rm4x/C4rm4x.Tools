@@ -54,7 +54,6 @@
     <Compile Include="Attributes\UnitTestAttribute.cs" />
     <Compile Include="AutoMockFixture.cs" />
     <Compile Include="Builders\AbstractBuilder.cs" />
-    <Compile Include="Builders\AbstractProxy.cs" />
     <Compile Include="Builders\BuilderCollection.cs" />
     <Compile Include="Internal\MockUtility.cs" />
     <Compile Include="ObjectMother.cs" />

@@ -100,7 +100,7 @@ namespace C4rm4x.Tools.TestUtilities
 
                 if (!typeof(IEnumerable).IsInstanceOfType(instance)) // Enumerable objects... only get initialized !
                 {
-                    foreach (var propertyInfo in GetPublicSetters(type))
+                    foreach (var propertyInfo in GetSetters(type))
                         propertyInfo.SetValue(instance, Create(propertyInfo.PropertyType));
                 }
 
@@ -112,11 +112,11 @@ namespace C4rm4x.Tools.TestUtilities
             }
         }
 
-        private static IEnumerable<PropertyInfo> GetPublicSetters(Type type)
+        private static IEnumerable<PropertyInfo> GetSetters(Type type)
         {
-            return type.GetProperties(
-                BindingFlags.Public | BindingFlags.Instance | BindingFlags.SetProperty)
-                .Where(p => p.GetSetMethod() != null && !p.GetMethod.IsVirtual);
+            return type
+                .GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty)
+                .Where(p => p.GetSetMethod(true) != null && !p.GetMethod.IsVirtual);
         }
 
         private static object Default(Type type)
