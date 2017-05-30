@@ -11,7 +11,7 @@ namespace C4rm4x.Tools.TestUtilities.Builders
     /// </summary>
     /// <typeparam name="T">The type of the instace to create</typeparam>
     public abstract class AbstractBuilder<T>
-            where T : class, new()
+            where T : class
     {
         /// <summary>
         /// The instace created
