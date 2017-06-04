@@ -45,11 +45,11 @@ namespace C4rm4x.Tools.HttpUtilities.Acl
         /// <param name="method">Method to execute to retrieve response</param>
         /// <param name="parameters">Parameters to include as part of queryString</param>
         /// <returns>The HttpResponseMessage</returns>
-        protected async Task<HttpResponseMessage> GetAsync(
+        protected Task<HttpResponseMessage> GetAsync(
             string method = "",
             params KeyValuePair<string, object>[] parameters)
         {
-            return await RESTfulConsumer.GetAsync(
+            return RESTfulConsumer.GetAsync(
                 Config.ApiBaseUrl,
                 method,
                 this.GetAuthorizationHeader(Config),
@@ -63,12 +63,12 @@ namespace C4rm4x.Tools.HttpUtilities.Acl
         /// <param name="method">Method to execute to retrieve response</param>
         /// <param name="parameters">Parameters to include as part of queryString</param>
         /// <returns>An instance of type T if exists</returns>
-        protected async Task<T> GetAsync<T>(
+        protected Task<T> GetAsync<T>(
             string method = "",
             params KeyValuePair<string, object>[] parameters)
             where T : class
         {
-            return await RESTfulConsumer.GetAsync<T>(
+            return RESTfulConsumer.GetAsync<T>(
                 Config.ApiBaseUrl,
                 method,
                 this.GetAuthorizationHeader(Config),
@@ -82,12 +82,12 @@ namespace C4rm4x.Tools.HttpUtilities.Acl
         /// <param name="method">Method to execute to retrieve response</param>
         /// <param name="parameters">Parameters to include as part of queryString</param>
         /// <returns>The list of all the instances of type T if any</returns>
-        protected async Task<IEnumerable<T>> GetAllAsync<T>(
+        protected Task<IEnumerable<T>> GetAllAsync<T>(
             string method = "",
             params KeyValuePair<string, object>[] parameters)
             where T : class
         {
-            return await RESTfulConsumer.GetAllAsync<T>(
+            return RESTfulConsumer.GetAllAsync<T>(
                 Config.ApiBaseUrl,
                 method,
                 this.GetAuthorizationHeader(Config),
@@ -102,13 +102,13 @@ namespace C4rm4x.Tools.HttpUtilities.Acl
         /// <param name="method">Method to execute to send data</param>
         /// <param name="parameters">Parameters to include as part of queryString</param>
         /// <returns>The HttpResponseMessage</returns>
-        protected async Task<HttpResponseMessage> PostAsync<T>(
+        protected Task<HttpResponseMessage> PostAsync<T>(
             T objectToSend,
             string method = "",
             params KeyValuePair<string, object>[] parameters)
             where T : class
         {
-            return await RESTfulConsumer.PostAsync<T>(
+            return RESTfulConsumer.PostAsync<T>(
                 objectToSend,
                 Config.ApiBaseUrl,
                 method,
@@ -124,13 +124,13 @@ namespace C4rm4x.Tools.HttpUtilities.Acl
         /// <param name="method">Method to execute to send data</param>
         /// <param name="parameters">Parameters to include as part of queryString</param>
         /// <returns>The HttpResponseMessage</returns>
-        protected async Task<HttpResponseMessage> PutAsync<T>(
+        protected Task<HttpResponseMessage> PutAsync<T>(
             T objectToSend,
             string method = "",
             params KeyValuePair<string, object>[] parameters)
             where T : class
         {
-            return await RESTfulConsumer.PutAsync<T>(
+            return RESTfulConsumer.PutAsync<T>(
                 objectToSend,
                 Config.ApiBaseUrl,
                 method,
@@ -144,11 +144,11 @@ namespace C4rm4x.Tools.HttpUtilities.Acl
         /// <param name="method">Method to execute to delete data</param>
         /// <param name="parameters">Parameters to include as part of queryString</param>
         /// <returns>The HttpResponseMessage</returns>
-        protected async Task<HttpResponseMessage> DeleteAsync(
+        protected Task<HttpResponseMessage> DeleteAsync(
             string method = "",
             params KeyValuePair<string, object>[] parameters)
         {
-            return await RESTfulConsumer.DeleteAsync(
+            return RESTfulConsumer.DeleteAsync(
                 Config.ApiBaseUrl,
                 method,
                 this.GetAuthorizationHeader(Config),

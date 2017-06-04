@@ -25,13 +25,13 @@ namespace C4rm4x.Tools.HttpUtilities
         /// <param name="headers">Include headers to request</param>
         /// <param name="parameters">Parameters to include as part of query string</param>
         /// <returns>Returns the HttpResponseMessage</returns>
-        public static async Task<HttpResponseMessage> GetAsync(
+        public static Task<HttpResponseMessage> GetAsync(
             string domain,
             string method = "",
             Action<HttpRequestHeaders> headers = null,
             params KeyValuePair<string, object>[] parameters)
         {
-            return await InvokeGetAsync(domain, method, headers, parameters);
+            return  InvokeGetAsync(domain, method, headers, parameters);
         }
 
         /// <summary>
@@ -43,14 +43,14 @@ namespace C4rm4x.Tools.HttpUtilities
         /// <param name="headers">Include headers to request</param>
         /// <param name="parameters">Parameters to include as part of query string</param>
         /// <returns>Returns an instance of type T if exists</returns>
-        public static async Task<T> GetAsync<T>(
+        public static Task<T> GetAsync<T>(
             string domain,
             string method = "",
             Action<HttpRequestHeaders> headers = null,
             params KeyValuePair<string, object>[] parameters)
             where T : class
         {
-            return await GetByAsync<T>(domain, method, headers, parameters);
+            return GetByAsync<T>(domain, method, headers, parameters);
         }
 
         /// <summary>
@@ -62,14 +62,14 @@ namespace C4rm4x.Tools.HttpUtilities
         /// <param name="headers">Include headers to request</param>
         /// <param name="parameters">Parameters to include as part of query string</param>
         /// <returns>Returns the list of all the instances of type T if any</returns>
-        public static async Task<IEnumerable<T>> GetAllAsync<T>(
+        public static Task<IEnumerable<T>> GetAllAsync<T>(
             string domain,
             string method = "",
             Action<HttpRequestHeaders> headers = null,
             params KeyValuePair<string, object>[] parameters)
             where T : class
         {
-            return await GetByAsync<List<T>>(domain, method, headers, parameters);
+            return GetByAsync<IEnumerable<T>>(domain, method, headers, parameters);
         }
 
         private static async Task<TResult> GetByAsync<TResult>(
@@ -96,7 +96,7 @@ namespace C4rm4x.Tools.HttpUtilities
         /// <param name="headers">Include headers to request</param>
         /// <param name="parameters">Parameters to include as part of query string</param>
         /// <returns>Returns the HttpResponseMessage</returns>
-        public static async Task<HttpResponseMessage> PostAsync<T>(
+        public static Task<HttpResponseMessage> PostAsync<T>(
             T objectToSend,
             string domain,
             string method = "",
@@ -104,7 +104,7 @@ namespace C4rm4x.Tools.HttpUtilities
             params KeyValuePair<string, object>[] parameters)
             where T : class
         {
-            return await InvokeMethodAsync(
+            return InvokeMethodAsync(
                 domain, 
                 client => client.PostAsJsonAsync(BuildMethodName(method, parameters), objectToSend), 
                 headers);
@@ -120,7 +120,7 @@ namespace C4rm4x.Tools.HttpUtilities
         /// <param name="headers">Include headers to request</param>
         /// <param name="parameters">Parameters to include as part of query string</param>
         /// <returns>Returns the HttpResponseMessage</returns>
-        public static async Task<HttpResponseMessage> PutAsync<T>(
+        public static Task<HttpResponseMessage> PutAsync<T>(
             T objectToSend,
             string domain,
             string method = "",
@@ -128,7 +128,7 @@ namespace C4rm4x.Tools.HttpUtilities
             params KeyValuePair<string, object>[] parameters)
             where T : class
         {
-            return await InvokeMethodAsync(
+            return InvokeMethodAsync(
                 domain, 
                 client => client.PutAsJsonAsync(BuildMethodName(method, parameters), objectToSend),
                 headers);
@@ -142,13 +142,13 @@ namespace C4rm4x.Tools.HttpUtilities
         /// <param name="headers">Include headers to request</param>
         /// <param name="parameters">Parameters to include as part of query string</param>
         /// <returns>Returns the HttpResponseMessage</returns>
-        public static async Task<HttpResponseMessage> DeleteAsync(
+        public static Task<HttpResponseMessage> DeleteAsync(
             string domain,
             string method = "",
             Action<HttpRequestHeaders> headers = null,
             params KeyValuePair<string, object>[] parameters)
         {
-            return await InvokeMethodAsync(
+            return InvokeMethodAsync(
                 domain, 
                 client => client .DeleteAsync(BuildMethodName(method, parameters)),
                 headers);
@@ -167,13 +167,13 @@ namespace C4rm4x.Tools.HttpUtilities
             return "{0}?{1}".AsFormat(method, queryString);
         }
 
-        private static async Task<HttpResponseMessage> InvokeGetAsync(
+        private static Task<HttpResponseMessage> InvokeGetAsync(
             string domain,
             string method,
             Action<HttpRequestHeaders> headers = null,
             params KeyValuePair<string, object>[] parameters)
         {
-            return await InvokeMethodAsync(
+            return InvokeMethodAsync(
                 domain, 
                 client => client.GetAsync(BuildMethodName(method, parameters)), 
                 headers);

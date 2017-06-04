@@ -69,12 +69,12 @@ namespace C4rm4x.Tools.TestUtilities.Internal
         /// <param name="customHeaders">Custom headers to be added as part of request headers</param>
         /// <param name="parameters">Parameters to include as part of query string</param>
         /// <returns>Returns the HttpResponseMessage</returns>
-        public async Task<HttpResponseMessage> GetAsync(
+        public Task<HttpResponseMessage> GetAsync(
             string method,
             Action<HttpRequestHeaders> customHeaders = null,
             params KeyValuePair<string, object>[] parameters)
         {
-            return await RESTfulConsumer.GetAsync(BaseUrl, method, IncludeAllHeaders(customHeaders), parameters);
+            return RESTfulConsumer.GetAsync(BaseUrl, method, IncludeAllHeaders(customHeaders), parameters);
         }
 
         /// <summary>
@@ -85,13 +85,13 @@ namespace C4rm4x.Tools.TestUtilities.Internal
         /// <param name="customHeaders">Custom headers to be added as part of request headers</param>
         /// <param name="parameters">Parameters to include as part of query string</param>
         /// <returns>Returns the instance of type T if exists</returns>
-        public async Task<T> GetAsync<T>(
+        public Task<T> GetAsync<T>(
             string method,
             Action<HttpRequestHeaders> customHeaders = null,
             params KeyValuePair<string, object>[] parameters)
             where T : class
         {
-            return await RESTfulConsumer.GetAsync<T>(BaseUrl, method, IncludeAllHeaders(customHeaders), parameters);
+            return RESTfulConsumer.GetAsync<T>(BaseUrl, method, IncludeAllHeaders(customHeaders), parameters);
         }
 
         /// <summary>
@@ -102,13 +102,13 @@ namespace C4rm4x.Tools.TestUtilities.Internal
         /// <param name="customHeaders">Custom headers to be added as part of request headers</param>
         /// <param name="parameters">Parameters to include as part of query string</param>
         /// <returns>Returns all the instance of type T</returns>
-        public async Task<IEnumerable<T>> GetAllAsync<T>(
+        public Task<IEnumerable<T>> GetAllAsync<T>(
             string method,
             Action<HttpRequestHeaders> customHeaders = null,
             params KeyValuePair<string, object>[] parameters)
             where T : class
         {
-            return await RESTfulConsumer.GetAllAsync<T>(BaseUrl, method, IncludeAllHeaders(customHeaders), parameters);
+            return RESTfulConsumer.GetAllAsync<T>(BaseUrl, method, IncludeAllHeaders(customHeaders), parameters);
         }
 
         /// <summary>
@@ -120,14 +120,14 @@ namespace C4rm4x.Tools.TestUtilities.Internal
         /// <param name="customHeaders">Custom headers to be added as part of request headers</param>
         /// <param name="parameters">Parameters to include as part of query string</param>
         /// <returns>Returns the HttpResponseMessage</returns>
-        public async Task<HttpResponseMessage> PostAsync<T>(
+        public Task<HttpResponseMessage> PostAsync<T>(
             T objectToSend,
             string method,
             Action<HttpRequestHeaders> customHeaders = null,
             params KeyValuePair<string, object>[] parameters)
             where T : class
         {
-            return await RESTfulConsumer.PostAsync(objectToSend, BaseUrl, method, IncludeAllHeaders(customHeaders), parameters);
+            return RESTfulConsumer.PostAsync(objectToSend, BaseUrl, method, IncludeAllHeaders(customHeaders), parameters);
         }
 
         /// <summary>
@@ -139,14 +139,14 @@ namespace C4rm4x.Tools.TestUtilities.Internal
         /// <param name="customHeaders">Custom headers to be added as part of request headers</param>
         /// <param name="parameters">Parameters to include as part of query string</param>
         /// <returns>Returns the HttpResponseMessage</returns>
-        public async Task<HttpResponseMessage> PutAsync<T>(
+        public Task<HttpResponseMessage> PutAsync<T>(
             T objectToSend,
             string method,
             Action<HttpRequestHeaders> customHeaders = null,
             params KeyValuePair<string, object>[] parameters)
             where T : class
         {
-            return await RESTfulConsumer.PutAsync(objectToSend, BaseUrl, method, IncludeAllHeaders(customHeaders), parameters);
+            return RESTfulConsumer.PutAsync(objectToSend, BaseUrl, method, IncludeAllHeaders(customHeaders), parameters);
         }
 
         /// <summary>
@@ -156,12 +156,12 @@ namespace C4rm4x.Tools.TestUtilities.Internal
         /// <param name="customHeaders">Custom headers to be added as part of request headers</param>
         /// <param name="parameters">Parameters to include as part of query string</param>
         /// <returns>Returns the HttpResponseMessage</returns>
-        public async Task<HttpResponseMessage> DeleteAsync(
+        public Task<HttpResponseMessage> DeleteAsync(
             string method,
             Action<HttpRequestHeaders> customHeaders = null,
             params KeyValuePair<string, object>[] parameters)
         {
-            return await RESTfulConsumer.DeleteAsync(BaseUrl, method, IncludeAllHeaders(customHeaders), parameters);
+            return RESTfulConsumer.DeleteAsync(BaseUrl, method, IncludeAllHeaders(customHeaders), parameters);
         }
 
         private Action<HttpRequestHeaders> IncludeAllHeaders(Action<HttpRequestHeaders> customHeader = null)
