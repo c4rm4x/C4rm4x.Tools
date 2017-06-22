@@ -3,6 +3,8 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+using System.Linq;
 
 #endregion
 
@@ -50,7 +52,16 @@ namespace C4rm4x.Tools.TestUtilities.Internal
         /// </summary>
         public void SaveAllChanges()
         {
-            _entities.SaveChanges();
+            retry:
+            try
+            {
+                _entities.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                ex.Entries.Single().Reload();
+                goto retry;
+            }
         }
 
         /// <summary>
