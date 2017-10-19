@@ -3,16 +3,18 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+using System.Linq;
 
 #endregion
 
-namespace C4rm4x.Tools.TestUtilities.Internal
+namespace C4rm4x.Tools.TestUtilities.EF
 {
     /// <summary>
-    /// Service responsible to manage the persistante of the entities
+    /// Service responsible to manage the persistance of the entities
     /// </summary>
     /// <typeparam name="C">The type of the DbContext</typeparam>
-    internal class EntityManager<C> : IDisposable
+    public class EntityManager<C> : IDisposable
         where C : DbContext
     {
         private readonly C _entities;
@@ -50,7 +52,16 @@ namespace C4rm4x.Tools.TestUtilities.Internal
         /// </summary>
         public void SaveAllChanges()
         {
-            _entities.SaveChanges();
+            retry:
+            try
+            {
+                _entities.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                ex.Entries.Single().Reload();
+                goto retry;
+            }
         }
 
         /// <summary>
@@ -72,7 +83,6 @@ namespace C4rm4x.Tools.TestUtilities.Internal
             if (IsDisposed) return;
 
             _entities.Dispose();
-            _addedEntities.Clear();
 
             GC.SuppressFinalize(this);
 

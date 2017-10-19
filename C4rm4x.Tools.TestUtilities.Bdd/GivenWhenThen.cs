@@ -1,18 +1,17 @@
 ﻿#region Using
 
-using C4rm4x.Tools.TestUtilities.Bdd;
 using C4rm4x.Tools.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 
 #endregion
 
-namespace C4rm4x.Tools.TestUtilities.Internal
+namespace C4rm4x.Tools.TestUtilities.Bdd
 {
     /// <summary>
     /// Implementation of a Given-When-Then test plan
     /// </summary>
-    internal class GivenWhenThen :
+    public class GivenWhenThen :
         IGivenDefinition, IWhenDefinition, IThenDefinition
     {
         private readonly ICollection<GivenStep> _givenSteps;
