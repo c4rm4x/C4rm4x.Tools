@@ -43,6 +43,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C4rm4x.Tools.TestUtilities.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C4rm4x.Tools.TestUtilities.EF", "C4rm4x.Tools.TestUtilities.EF\C4rm4x.Tools.TestUtilities.EF.csproj", "{ED58F0F9-C13F-413C-911D-2B381B85257D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C4rm4x.Tools.AzureQueue", "C4rm4x.Tools.AzureQueue\C4rm4x.Tools.AzureQueue.csproj", "{EFC37B6E-C756-4711-AF66-AFC760C34560}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C4rm4x.Tools.AzureQueue.Test", "C4rm4x.Tools.AzureQueue.Test\C4rm4x.Tools.AzureQueue.Test.csproj", "{ACBDB448-A4D6-47E8-8085-6B422BC317A7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -125,6 +129,14 @@ Global
 		{ED58F0F9-C13F-413C-911D-2B381B85257D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED58F0F9-C13F-413C-911D-2B381B85257D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED58F0F9-C13F-413C-911D-2B381B85257D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EFC37B6E-C756-4711-AF66-AFC760C34560}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFC37B6E-C756-4711-AF66-AFC760C34560}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFC37B6E-C756-4711-AF66-AFC760C34560}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFC37B6E-C756-4711-AF66-AFC760C34560}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACBDB448-A4D6-47E8-8085-6B422BC317A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACBDB448-A4D6-47E8-8085-6B422BC317A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACBDB448-A4D6-47E8-8085-6B422BC317A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACBDB448-A4D6-47E8-8085-6B422BC317A7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -137,5 +149,6 @@ Global
 		{FBC16DCB-937B-42E3-8619-494D96135349} = {F252BFEA-9F85-4B29-8AB5-71F821A67E42}
 		{B9841E40-1E4F-48DF-B9FB-4344B04CB67A} = {F252BFEA-9F85-4B29-8AB5-71F821A67E42}
 		{3058D4BB-9403-468B-A6A2-5A5AEA9867A6} = {F252BFEA-9F85-4B29-8AB5-71F821A67E42}
+		{ACBDB448-A4D6-47E8-8085-6B422BC317A7} = {F252BFEA-9F85-4B29-8AB5-71F821A67E42}
 	EndGlobalSection
 EndGlobal
