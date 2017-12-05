@@ -154,6 +154,28 @@ namespace C4rm4x.Tools.HttpUtilities
                 headers);
         }
 
+        /// <summary>
+        /// Uploads a file
+        /// </summary>    
+        /// <param name="file">File content</param>
+        /// <param name="domain">Server domain to send information to</param>
+        /// <param name="method">Method to execute to send information</param>
+        /// <param name="headers">Include headers to request</param>
+        /// <param name="parameters">Parameters to include as part of query string</param>
+        /// <returns>Returns the HttpResponseMessage</returns>
+        public static Task<HttpResponseMessage> UploadAsync(
+            byte[] file,
+            string domain,
+            string method = "",
+            Action<HttpRequestHeaders> headers = null,
+            params KeyValuePair<string, object>[] parameters)
+        {
+            return InvokeMethodAsync(
+                domain,
+                client => client.PostAsync(BuildMethodName(method, parameters), BuildForm(file)),
+                headers);
+        }
+
         private static string BuildMethodName(
             string method,
             KeyValuePair<string, object>[] parameters)
@@ -218,6 +240,21 @@ namespace C4rm4x.Tools.HttpUtilities
 
             client.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue(ApplicationJson));
-        }        
+        }
+
+        private static HttpContent BuildForm(byte[] content)
+        {
+            const string MultipartFormData = "multipart/form-data";
+
+            var fileContent = new ByteArrayContent(content);
+
+            fileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(MultipartFormData);
+
+            var formDataContent = new MultipartFormDataContent();
+
+            formDataContent.Add(fileContent);
+
+            return formDataContent;
+        }
     }
 }
