@@ -49,6 +49,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C4rm4x.Tools.AzureQueue.Tes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C4rm4x.Tools.ADOUtilities", "C4rm4x.Tools.ADOUtilities\C4rm4x.Tools.ADOUtilities.csproj", "{D1CA9713-D3B3-421F-BDC7-43FB0D3F1FFC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C4rm4x.Tools.ADOUtilities.Test", "C4rm4x.Tools.ADOUtilities.Test\C4rm4x.Tools.ADOUtilities.Test.csproj", "{295912CF-CA8F-48D8-9D64-981FA875680E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -143,6 +145,10 @@ Global
 		{D1CA9713-D3B3-421F-BDC7-43FB0D3F1FFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D1CA9713-D3B3-421F-BDC7-43FB0D3F1FFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D1CA9713-D3B3-421F-BDC7-43FB0D3F1FFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{295912CF-CA8F-48D8-9D64-981FA875680E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{295912CF-CA8F-48D8-9D64-981FA875680E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{295912CF-CA8F-48D8-9D64-981FA875680E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{295912CF-CA8F-48D8-9D64-981FA875680E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -156,5 +162,6 @@ Global
 		{B9841E40-1E4F-48DF-B9FB-4344B04CB67A} = {F252BFEA-9F85-4B29-8AB5-71F821A67E42}
 		{3058D4BB-9403-468B-A6A2-5A5AEA9867A6} = {F252BFEA-9F85-4B29-8AB5-71F821A67E42}
 		{ACBDB448-A4D6-47E8-8085-6B422BC317A7} = {F252BFEA-9F85-4B29-8AB5-71F821A67E42}
+		{295912CF-CA8F-48D8-9D64-981FA875680E} = {F252BFEA-9F85-4B29-8AB5-71F821A67E42}
 	EndGlobalSection
 EndGlobal
