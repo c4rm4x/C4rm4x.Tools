@@ -14,7 +14,8 @@ namespace C4rm4x.Tools.AzureQueue
     {
         private static JsonSerializerSettings Settings => new JsonSerializerSettings
         {
-            TypeNameHandling = TypeNameHandling.All
+            TypeNameHandling = TypeNameHandling.All,
+            ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor
         };
 
         /// <summary>
