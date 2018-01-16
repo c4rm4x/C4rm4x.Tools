@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C4rm4x.Tools.Utilities", "C4rm4x.Tools.Utilities\C4rm4x.Tools.Utilities.csproj", "{FA3BAA38-4659-4EA0-AB24-98DF3DA09F7F}"
 EndProject
@@ -50,6 +50,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C4rm4x.Tools.ADOUtilities", "C4rm4x.Tools.ADOUtilities\C4rm4x.Tools.ADOUtilities.csproj", "{D1CA9713-D3B3-421F-BDC7-43FB0D3F1FFC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C4rm4x.Tools.ADOUtilities.Test", "C4rm4x.Tools.ADOUtilities.Test\C4rm4x.Tools.ADOUtilities.Test.csproj", "{295912CF-CA8F-48D8-9D64-981FA875680E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C4rm4x.Tools.Cryptography", "C4rm4x.Tools.Cryptography\C4rm4x.Tools.Cryptography.csproj", "{98C2F2AB-FA6F-4777-ABAA-BEDAAAB1A09B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C4rm4x.Tools.Cryptography.Test", "C4rm4x.Tools.Cryptography.Test\C4rm4x.Tools.Cryptography.Test.csproj", "{3A8E409B-6D29-4903-810E-0C9C962CB887}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -149,6 +153,14 @@ Global
 		{295912CF-CA8F-48D8-9D64-981FA875680E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{295912CF-CA8F-48D8-9D64-981FA875680E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{295912CF-CA8F-48D8-9D64-981FA875680E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98C2F2AB-FA6F-4777-ABAA-BEDAAAB1A09B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98C2F2AB-FA6F-4777-ABAA-BEDAAAB1A09B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98C2F2AB-FA6F-4777-ABAA-BEDAAAB1A09B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98C2F2AB-FA6F-4777-ABAA-BEDAAAB1A09B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A8E409B-6D29-4903-810E-0C9C962CB887}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A8E409B-6D29-4903-810E-0C9C962CB887}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A8E409B-6D29-4903-810E-0C9C962CB887}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A8E409B-6D29-4903-810E-0C9C962CB887}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -163,5 +175,6 @@ Global
 		{3058D4BB-9403-468B-A6A2-5A5AEA9867A6} = {F252BFEA-9F85-4B29-8AB5-71F821A67E42}
 		{ACBDB448-A4D6-47E8-8085-6B422BC317A7} = {F252BFEA-9F85-4B29-8AB5-71F821A67E42}
 		{295912CF-CA8F-48D8-9D64-981FA875680E} = {F252BFEA-9F85-4B29-8AB5-71F821A67E42}
+		{3A8E409B-6D29-4903-810E-0C9C962CB887} = {F252BFEA-9F85-4B29-8AB5-71F821A67E42}
 	EndGlobalSection
 EndGlobal
