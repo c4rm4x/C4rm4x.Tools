@@ -14,10 +14,13 @@ namespace C4rm4x.Tools.HttpUtilities.Acl.Configuration
 
         public string SecretAsBase64 { get; private set; }
 
+        public string SignatureHeader { get; private set; }
+
         public AclRESTfulConsumerConfiguration(
             string apiBaseUrl,
             string subscriberIdentifier,
-            string secretAsBase64)
+            string secretAsBase64,
+            string signatureHeader = null)
         {
             apiBaseUrl.NotNullOrEmpty(nameof(apiBaseUrl));
             subscriberIdentifier.NotNullOrEmpty(nameof(subscriberIdentifier));
@@ -26,6 +29,7 @@ namespace C4rm4x.Tools.HttpUtilities.Acl.Configuration
             ApiBaseUrl = apiBaseUrl;
             SubscriberIdentifier = subscriberIdentifier;
             SecretAsBase64 = secretAsBase64;
+            SignatureHeader = signatureHeader;
         }
     }
 }

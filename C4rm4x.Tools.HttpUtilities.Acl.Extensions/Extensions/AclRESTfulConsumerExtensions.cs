@@ -23,13 +23,14 @@ namespace C4rm4x.Tools.HttpUtilities.Acl
             return new AclRESTfulConsumerConfiguration(
                 thisSubscriptionConfig.BaseApiUrl,
                 thisSubscriptionConfig.SubscriberIdentifier,
-                thisSubscriptionConfig.SharedSecret);
+                thisSubscriptionConfig.SharedSecret,
+                thisSubscriptionConfig.SignatureHeader);
         }
 
         private static SubscriptionConfig GetSubscriptionConfig(
             string subscriptionName)
         {
-            var thisSubscription = 
+            var thisSubscription =
                 GetSubscriptionsConfiguration()
                     .Subscriptions[subscriptionName];
 
@@ -55,6 +56,20 @@ namespace C4rm4x.Tools.HttpUtilities.Acl
             return section;
         }
 
+        public static Action<HttpRequestHeaders> GetAclHeaders<T>(
+            this AclRESTfulConsumer consumer,
+            AclRESTfulConsumerConfiguration config,
+            T objectToSend)
+        {
+            return headers =>
+            {
+                consumer.GetAuthorizationHeader(config);
+
+                if (!config.SignatureHeader.IsNullOrEmpty())
+                    consumer.GetSignatureHeader(config, objectToSend);
+            };
+        }
+
         public static Action<HttpRequestHeaders> GetAuthorizationHeader(
             this AclRESTfulConsumer consumer,
             AclRESTfulConsumerConfiguration config)
@@ -62,6 +77,16 @@ namespace C4rm4x.Tools.HttpUtilities.Acl
             return RequestHeaderFactory.AddAuthorization(
                 new AclClientCredentialsGenerator()
                     .Generate(config.SubscriberIdentifier, config.SecretAsBase64));
+        }
+
+        public static Action<HttpRequestHeaders> GetSignatureHeader<T>(
+            this AclRESTfulConsumer consumer,
+            AclRESTfulConsumerConfiguration config,
+            T objectToSend)
+        {
+            return headers => headers.Add(config.SignatureHeader,
+                new AclClientRequestSigner()
+                    .Sign(objectToSend, config.SecretAsBase64));
         }
     }
 }

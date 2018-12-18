@@ -17,7 +17,7 @@ namespace C4rm4x.Tools.HttpUtilities.Acl.Test
             private const string BaseApiUrl = "http://www.google.com";
             private const string SubscriberIdentifier = "TestSubscriber";
             private const string SharedSecret = "aGVsbG8=";
-
+            private const string SignatureHeader = "TestHeader";
 
             [TestMethod, UnitTest]
             [ExpectedException(typeof(ArgumentException))]
@@ -55,6 +55,16 @@ namespace C4rm4x.Tools.HttpUtilities.Acl.Test
                     CreateSubjectUnderTest()
                         .GetClientConfiguration()
                         .SecretAsBase64);
+            }
+
+            [TestMethod, UnitTest]
+            public void GetClientConfiguration_Returns_AclRESTfulConfiguration_Instance_Where_SignatureHeader_Is_Retrieved_From_App_Config()
+            {
+                Assert.AreEqual(
+                    SignatureHeader,
+                    CreateSubjectUnderTest()
+                        .GetClientConfiguration()
+                        .SignatureHeader);
             }
         }
     }

@@ -10,7 +10,7 @@ namespace C4rm4x.Tools.HttpUtilities.Acl.Configuration
     /// <summary>
     /// Custom configuration for all subscriptions of a particular client
     /// </summary>
-    public class SubscriptionsSection : 
+    public class SubscriptionsSection :
         ConfigurationSection
     {
         /// <summary>
@@ -149,11 +149,13 @@ namespace C4rm4x.Tools.HttpUtilities.Acl.Configuration
         /// <param name="baseApiUrl">Base API url to be consumed</param>
         /// <param name="subscriberIdentifier">The subscriber identifier in the API</param>
         /// <param name="sharedSecret">The shared secret between client and API (in base 64 format)</param>
+        /// <param name="signatureHeader">The header to use to sign POST/PUT requests (if any)</param>
         public SubscriptionConfig(
             string name,
             string baseApiUrl,
             string subscriberIdentifier,
-            string sharedSecret)
+            string sharedSecret,
+            string signatureHeader = null)
         {
             name.NotNullOrEmpty(nameof(name));
             baseApiUrl.NotNullOrEmpty(nameof(baseApiUrl));
@@ -164,6 +166,7 @@ namespace C4rm4x.Tools.HttpUtilities.Acl.Configuration
             BaseApiUrl = baseApiUrl;
             SubscriberIdentifier = subscriberIdentifier;
             SharedSecret = sharedSecret;
+            SignatureHeader = signatureHeader;
         }
 
         /// <summary>
@@ -204,6 +207,16 @@ namespace C4rm4x.Tools.HttpUtilities.Acl.Configuration
         {
             get { return (string)this["sharedSecret"]; }
             set { this["sharedSecret"] = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the header to use to sign POST/PUT requests (if present)
+        /// </summary>
+        [ConfigurationProperty("signatureHeader", DefaultValue = "", IsKey = false, IsRequired = false)]
+        public string SignatureHeader
+        {
+            get { return (string)this["signatureHeader"]; }
+            set { this["signatureHeader"] = value; }
         }
     }
 }

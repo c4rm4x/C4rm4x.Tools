@@ -39,6 +39,9 @@
       <HintPath>..\packages\C4rm4x.Tools.HttpUtilities.4.0.0\lib\net452\C4rm4x.Tools.HttpUtilities.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="C4rm4x.Tools.Security.Acl, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\C4rm4x.Tools.Security.Acl.1.1.0\lib\net452\C4rm4x.Tools.Security.Acl.dll</HintPath>
+    </Reference>
     <Reference Include="C4rm4x.Tools.TestUtilities, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\C4rm4x.Tools.TestUtilities.1.1.0.0\lib\net452\C4rm4x.Tools.TestUtilities.dll</HintPath>
       <Private>True</Private>
@@ -77,6 +80,7 @@
   <ItemGroup>
     <Compile Include="Extensions\AclRESTfulConsumerExtensionsTest.cs" />
     <Compile Include="Extensions\AclRESTfulConsumerExtensionsTest.GetClientConfiguration.cs" />
+    <Compile Include="Extensions\AclRESTfulConsumerExtensionsTest.GetSignatureHeader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
