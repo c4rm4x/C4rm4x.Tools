@@ -18,7 +18,7 @@ namespace C4rm4x.Tools.HttpUtilities.Acl.Configuration
         /// </summary>
         [ConfigurationProperty("subscriptions", IsDefaultCollection = false)]
         [ConfigurationCollection(typeof(SubscriptionCollection),
-            AddItemName = "add",
+            AddItemName = "subscription",
             ClearItemsName = "clear")]
         public SubscriptionCollection Subscriptions
         {
@@ -36,10 +36,10 @@ namespace C4rm4x.Tools.HttpUtilities.Acl.Configuration
         /// Gets or sets a subscription config based on its location in the collection
         /// </summary>
         /// <param name="index">The location of the subscription config in the collection</param>
-        /// <returns></returns>
-        public SubscriptionConfig this[int index]
+        /// <returns>The element for the given index</returns>
+        public SubscriptionConfigurationElement this[int index]
         {
-            get { return (SubscriptionConfig)BaseGet(index); }
+            get { return (SubscriptionConfigurationElement)BaseGet(index); }
             set
             {
                 if (BaseGet(index).IsNotNull())
@@ -53,10 +53,10 @@ namespace C4rm4x.Tools.HttpUtilities.Acl.Configuration
         /// Gets or sets a subscription config based on its name
         /// </summary>
         /// <param name="name">The subscription config name</param>
-        /// <returns></returns>
-        public new SubscriptionConfig this[string name]
+        /// <returns>The element for the given name</returns>
+        public new SubscriptionConfigurationElement this[string name]
         {
-            get { return (SubscriptionConfig)BaseGet(name); }
+            get { return (SubscriptionConfigurationElement)BaseGet(name); }
             set
             {
                 if (BaseGet(name).IsNotNull())
@@ -67,10 +67,10 @@ namespace C4rm4x.Tools.HttpUtilities.Acl.Configuration
         }
 
         /// <summary>
-        /// Adds a subscription config element to the System.Configuration.ConfigurationElementCollection
+        /// Adds a subscription configuration element to the System.Configuration.ConfigurationElementCollection
         /// </summary>
         /// <param name="subscriptionConfig">The subscription config to be added</param>
-        public void Add(SubscriptionConfig subscriptionConfig)
+        public void Add(SubscriptionConfigurationElement subscriptionConfig)
         {
             BaseAdd(subscriptionConfig);
         }
@@ -87,7 +87,7 @@ namespace C4rm4x.Tools.HttpUtilities.Acl.Configuration
         /// Removes a subscription config element from the collection
         /// </summary>
         /// <param name="subscriptionConfig">The subscription config to be deleted</param>
-        public void Remove(SubscriptionConfig subscriptionConfig)
+        public void Remove(SubscriptionConfigurationElement subscriptionConfig)
         {
             BaseRemove(subscriptionConfig.Name);
         }
@@ -114,32 +114,40 @@ namespace C4rm4x.Tools.HttpUtilities.Acl.Configuration
         /// Gets the subscription config name for an specified subscription config element
         /// </summary>
         /// <param name="element">The element</param>
-        /// <returns></returns>
+        /// <returns>The element key</returns>
         protected override object GetElementKey(
             ConfigurationElement element)
         {
-            return (element as SubscriptionConfig).Name;
+            return (element as SubscriptionConfigurationElement).Name;
         }
 
         /// <summary>
         /// Creates a new subscription config element
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A new element</returns>
         protected override ConfigurationElement CreateNewElement()
         {
-            return new SubscriptionConfig();
+            return new SubscriptionConfigurationElement();
+        }
+
+        /// <summary>
+        /// Gets the name used to identify this collection of elements in the configuration file when overridden in a derived class
+        /// </summary>
+        protected override string ElementName
+        {
+            get { return "subscription"; }
         }
     }
 
     /// <summary>
     /// The subscription configuration for this client
     /// </summary>
-    public class SubscriptionConfig : ConfigurationElement
+    public class SubscriptionConfigurationElement : ConfigurationElement
     {
         /// <summary>
         /// Constructor
         /// </summary>
-        public SubscriptionConfig()
+        public SubscriptionConfigurationElement()
         { }
 
         /// <summary>
@@ -147,26 +155,26 @@ namespace C4rm4x.Tools.HttpUtilities.Acl.Configuration
         /// </summary>
         /// <param name="name">Subscription identifier</param>
         /// <param name="baseApiUrl">Base API url to be consumed</param>
-        /// <param name="subscriberIdentifier">The subscriber identifier in the API</param>
-        /// <param name="sharedSecret">The shared secret between client and API (in base 64 format)</param>
-        /// <param name="signatureHeader">The header to use to sign POST/PUT requests (if any)</param>
-        public SubscriptionConfig(
+        /// <param name="username">The subscriber identifier in the API</param>
+        /// <param name="password">The shared secret between client and API (in base 64 format)</param>
+        /// <param name="digitalSignature">The header to use to sign POST/PUT requests (if any)</param>
+        public SubscriptionConfigurationElement(
             string name,
             string baseApiUrl,
-            string subscriberIdentifier,
-            string sharedSecret,
-            string signatureHeader = null)
+            string username,
+            string password,
+            DigitalSignatureConfigurationElement digitalSignature = null)
         {
             name.NotNullOrEmpty(nameof(name));
             baseApiUrl.NotNullOrEmpty(nameof(baseApiUrl));
-            subscriberIdentifier.NotNullOrEmpty(nameof(subscriberIdentifier));
-            sharedSecret.NotNullOrEmpty(nameof(sharedSecret));
+            username.NotNullOrEmpty(nameof(username));
+            password.NotNullOrEmpty(nameof(password));
 
             Name = name;
             BaseApiUrl = baseApiUrl;
-            SubscriberIdentifier = subscriberIdentifier;
-            SharedSecret = sharedSecret;
-            SignatureHeader = signatureHeader;
+            Username = username;
+            Password = password;
+            DigitalSignature = digitalSignature;
         }
 
         /// <summary>
@@ -192,11 +200,70 @@ namespace C4rm4x.Tools.HttpUtilities.Acl.Configuration
         /// <summary>
         /// Gets or sets the subscriber identifier in the API
         /// </summary>
-        [ConfigurationProperty("subscriberIdentifier", DefaultValue = "", IsKey = false, IsRequired = true)]
-        public string SubscriberIdentifier
+        [ConfigurationProperty("username", DefaultValue = "", IsKey = false, IsRequired = true)]
+        public string Username
         {
-            get { return (string)this["subscriberIdentifier"]; }
-            set { this["subscriberIdentifier"] = value; }
+            get { return (string)this["username"]; }
+            set { this["username"] = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the password (in base 64 format)
+        /// </summary>
+        [ConfigurationProperty("password", DefaultValue = "", IsKey = false, IsRequired = true)]
+        public string Password
+        {
+            get { return (string)this["password"]; }
+            set { this["password"] = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the header to use to sign POST/PUT requests (if present)
+        /// </summary>
+        [ConfigurationProperty("digitalSignature", DefaultValue = null, IsKey = false, IsRequired = false)]
+        public DigitalSignatureConfigurationElement DigitalSignature
+        {
+            get { return (DigitalSignatureConfigurationElement)this["digitalSignature"]; }
+            set { this["digitalSignature"] = value; }
+        }
+    }
+
+    /// <summary>
+    /// The digital signature configuration for this client (if any)
+    /// </summary>
+    public class DigitalSignatureConfigurationElement : ConfigurationElement
+    {
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        public DigitalSignatureConfigurationElement()
+        {
+        }
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="header">The header name</param>
+        /// <param name="sharedSecret">Shared secret between client and server</param>
+        public DigitalSignatureConfigurationElement(
+            string header,
+            string sharedSecret)
+        {
+            header.NotNullOrEmpty(nameof(header));
+            sharedSecret.NotNullOrEmpty(nameof(sharedSecret));
+
+            Header = header;
+            SharedSecret = sharedSecret;
+        }
+
+        /// <summary>
+        /// Gets or sets the subscriber digital signature header
+        /// </summary>
+        [ConfigurationProperty("header", DefaultValue = "", IsKey = false, IsRequired = true)]
+        public string Header
+        {
+            get { return (string)this["header"]; }
+            set { this["header"] = value; }
         }
 
         /// <summary>
@@ -209,14 +276,6 @@ namespace C4rm4x.Tools.HttpUtilities.Acl.Configuration
             set { this["sharedSecret"] = value; }
         }
 
-        /// <summary>
-        /// Gets or sets the header to use to sign POST/PUT requests (if present)
-        /// </summary>
-        [ConfigurationProperty("signatureHeader", DefaultValue = "", IsKey = false, IsRequired = false)]
-        public string SignatureHeader
-        {
-            get { return (string)this["signatureHeader"]; }
-            set { this["signatureHeader"] = value; }
-        }
+        public bool IsEmpty => Header.IsNullOrEmpty() && SharedSecret.IsNullOrEmpty();
     }
 }

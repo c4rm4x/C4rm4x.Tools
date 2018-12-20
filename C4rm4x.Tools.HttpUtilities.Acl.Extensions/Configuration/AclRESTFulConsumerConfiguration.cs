@@ -10,26 +10,26 @@ namespace C4rm4x.Tools.HttpUtilities.Acl.Configuration
     {
         public string ApiBaseUrl { get; private set; }
 
-        public string SubscriberIdentifier { get; private set; }
+        public string Username { get; private set; }
 
-        public string SecretAsBase64 { get; private set; }
+        public string Password { get; private set; }
 
-        public string SignatureHeader { get; private set; }
+        public DigitalSignatureConfiguration SignatureConfiguration { get; private set; }
 
         public AclRESTfulConsumerConfiguration(
             string apiBaseUrl,
-            string subscriberIdentifier,
-            string secretAsBase64,
-            string signatureHeader = null)
+            string username,
+            string password,
+            DigitalSignatureConfiguration signatureConfiguration = null)
         {
             apiBaseUrl.NotNullOrEmpty(nameof(apiBaseUrl));
-            subscriberIdentifier.NotNullOrEmpty(nameof(subscriberIdentifier));
-            secretAsBase64.NotNullOrEmpty(nameof(secretAsBase64));
+            username.NotNullOrEmpty(nameof(username));
+            password.NotNullOrEmpty(nameof(password));
 
             ApiBaseUrl = apiBaseUrl;
-            SubscriberIdentifier = subscriberIdentifier;
-            SecretAsBase64 = secretAsBase64;
-            SignatureHeader = signatureHeader;
+            Username = username;
+            Password = password;
+            SignatureConfiguration = signatureConfiguration;
         }
     }
 }

@@ -15,9 +15,10 @@ namespace C4rm4x.Tools.HttpUtilities.Acl.Test
             AclRESTfulConsumerExtensionsFixture
         {
             private const string BaseApiUrl = "http://www.google.com";
-            private const string SubscriberIdentifier = "TestSubscriber";
-            private const string SharedSecret = "aGVsbG8=";
+            private const string Username = "TestSubscriber";
+            private const string Password = "cGFzc3dvcmQ==";
             private const string SignatureHeader = "TestHeader";
+            private const string SharedSecret = "aGVsbG8=";
 
             [TestMethod, UnitTest]
             [ExpectedException(typeof(ArgumentException))]
@@ -38,33 +39,54 @@ namespace C4rm4x.Tools.HttpUtilities.Acl.Test
             }
 
             [TestMethod, UnitTest]
-            public void GetClientConfiguration_Returns_AclRESTfulConfiguration_Instance_Where_SubscriberIdentifier_Is_Retrieved_From_App_Config()
+            public void GetClientConfiguration_Returns_AclRESTfulConfiguration_Instance_Where_Username_Is_Retrieved_From_App_Config()
             {
                 Assert.AreEqual(
-                    SubscriberIdentifier,
+                    Username,
                     CreateSubjectUnderTest()
                         .GetClientConfiguration()
-                        .SubscriberIdentifier);
+                        .Username);
             }
 
             [TestMethod, UnitTest]
-            public void GetClientConfiguration_Returns_AclRESTfulConfiguration_Instance_Where_Secret_Is_Retrieved_From_App_Config_And_Decoded_From_Base64()
+            public void GetClientConfiguration_Returns_AclRESTfulConfiguration_Instance_Where_Password_Is_Retrieved_From_App_Config_And_Decoded_From_Base64()
             {
                 Assert.AreEqual(
-                    SharedSecret,
+                    Password,
                     CreateSubjectUnderTest()
                         .GetClientConfiguration()
-                        .SecretAsBase64);
+                        .Password);
             }
 
             [TestMethod, UnitTest]
-            public void GetClientConfiguration_Returns_AclRESTfulConfiguration_Instance_Where_SignatureHeader_Is_Retrieved_From_App_Config()
+            public void GetClientConfiguration_Returns_AclRESTfulConfiguration_Instance_Where_SignatureConfiguration_Header_Is_Retrieved_From_App_Config()
             {
                 Assert.AreEqual(
                     SignatureHeader,
                     CreateSubjectUnderTest()
                         .GetClientConfiguration()
-                        .SignatureHeader);
+                        .SignatureConfiguration
+                        .Header);
+            }
+
+            [TestMethod, UnitTest]
+            public void GetClientConfiguration_Returns_AclRESTfulConfiguration_Instance_Where_SignatureConfiguration_SharedSecret_Is_Retrieved_From_App_Config()
+            {
+                Assert.AreEqual(
+                    SharedSecret,
+                    CreateSubjectUnderTest()
+                        .GetClientConfiguration()
+                        .SignatureConfiguration
+                        .SharedSecret);
+            }
+
+            [TestMethod, UnitTest]
+            public void GetClientConfiguration_Returns_AclRESTfulConfiguration_Instance_With_No_SignatureConfiguration_When_This_Is_Not_Defined()
+            {
+                Assert.IsNull(
+                    CreateSubjectUnderTest("Basic")
+                        .GetClientConfiguration()
+                        .SignatureConfiguration);
             }
         }
     }

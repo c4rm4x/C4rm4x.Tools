@@ -63,6 +63,7 @@
   <ItemGroup>
     <Compile Include="AclRESTfulConsumer.cs" />
     <Compile Include="Configuration\AclRESTFulConsumerConfiguration.cs" />
+    <Compile Include="Configuration\DigitalSignatureConfiguration.cs" />
     <Compile Include="Configuration\SubscriptionsSection.cs" />
     <Compile Include="Extensions\AclRESTfulConsumerExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -24,11 +24,11 @@ namespace C4rm4x.Tools.HttpUtilities.Acl.Test
 
                 generator(headers);
 
-                var signatureHeader = headers.FirstOrDefault(_ => _.Key == config.SignatureHeader);
+                var signatureHeader = headers.FirstOrDefault(_ => _.Key == config.SignatureConfiguration.Header);
 
                 Assert.IsNotNull(signatureHeader);
                 Assert.AreEqual(
-                    new AclClientRequestSigner().Sign(objectToSend, config.SecretAsBase64), 
+                    new AclClientRequestSigner().Sign(objectToSend, config.SignatureConfiguration.SharedSecret), 
                     signatureHeader.Value.FirstOrDefault());
             }
 

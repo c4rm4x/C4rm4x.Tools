@@ -112,7 +112,7 @@ namespace C4rm4x.Tools.HttpUtilities.Acl
                 objectToSend,
                 Config.ApiBaseUrl,
                 method,
-                this.GetAclHeaders(Config, objectToSend),
+                this.GetAllHeaders(Config, objectToSend),
                 parameters);
         }
 
@@ -134,7 +134,7 @@ namespace C4rm4x.Tools.HttpUtilities.Acl
                 objectToSend,
                 Config.ApiBaseUrl,
                 method,
-                this.GetAclHeaders(Config, objectToSend),
+                this.GetAllHeaders(Config, objectToSend),
                 parameters);
         }
 

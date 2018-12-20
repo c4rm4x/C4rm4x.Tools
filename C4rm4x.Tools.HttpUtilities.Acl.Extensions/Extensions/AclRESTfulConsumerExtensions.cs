@@ -13,7 +13,7 @@ namespace C4rm4x.Tools.HttpUtilities.Acl
 {
     internal static class AclRESTfulConsumerExtensions
     {
-        private const string AclSubscriptionsSection = "subscriptionsConfiguration";
+        private const string AclSubscriptionsSection = "subscriptionsSection";
 
         public static AclRESTfulConsumerConfiguration GetClientConfiguration(
             this AclRESTfulConsumer consumer)
@@ -22,12 +22,16 @@ namespace C4rm4x.Tools.HttpUtilities.Acl
 
             return new AclRESTfulConsumerConfiguration(
                 thisSubscriptionConfig.BaseApiUrl,
-                thisSubscriptionConfig.SubscriberIdentifier,
-                thisSubscriptionConfig.SharedSecret,
-                thisSubscriptionConfig.SignatureHeader);
+                thisSubscriptionConfig.Username,
+                thisSubscriptionConfig.Password,
+                thisSubscriptionConfig.DigitalSignature.IsEmpty
+                    ? null
+                    : new DigitalSignatureConfiguration(
+                        thisSubscriptionConfig.DigitalSignature.Header,
+                        thisSubscriptionConfig.DigitalSignature.SharedSecret));
         }
 
-        private static SubscriptionConfig GetSubscriptionConfig(
+        private static SubscriptionConfigurationElement GetSubscriptionConfig(
             string subscriptionName)
         {
             var thisSubscription =
@@ -56,7 +60,16 @@ namespace C4rm4x.Tools.HttpUtilities.Acl
             return section;
         }
 
-        public static Action<HttpRequestHeaders> GetAclHeaders<T>(
+        public static Action<HttpRequestHeaders> GetAuthorizationHeader(
+            this AclRESTfulConsumer consumer,
+            AclRESTfulConsumerConfiguration config)
+        {
+            return RequestHeaderFactory.AddAuthorization(
+                new AclClientCredentialsGenerator()
+                    .Generate(config.Username, config.Password));
+        }
+
+        public static Action<HttpRequestHeaders> GetAllHeaders<T>(
             this AclRESTfulConsumer consumer,
             AclRESTfulConsumerConfiguration config,
             T objectToSend)
@@ -65,18 +78,9 @@ namespace C4rm4x.Tools.HttpUtilities.Acl
             {
                 consumer.GetAuthorizationHeader(config);
 
-                if (!config.SignatureHeader.IsNullOrEmpty())
+                if (config.SignatureConfiguration.IsNotNull())
                     consumer.GetSignatureHeader(config, objectToSend);
             };
-        }
-
-        public static Action<HttpRequestHeaders> GetAuthorizationHeader(
-            this AclRESTfulConsumer consumer,
-            AclRESTfulConsumerConfiguration config)
-        {
-            return RequestHeaderFactory.AddAuthorization(
-                new AclClientCredentialsGenerator()
-                    .Generate(config.SubscriberIdentifier, config.SecretAsBase64));
         }
 
         public static Action<HttpRequestHeaders> GetSignatureHeader<T>(
@@ -84,9 +88,11 @@ namespace C4rm4x.Tools.HttpUtilities.Acl
             AclRESTfulConsumerConfiguration config,
             T objectToSend)
         {
-            return headers => headers.Add(config.SignatureHeader,
+            var signatureConfiguration = config.SignatureConfiguration;
+
+            return headers => headers.Add(signatureConfiguration.Header,
                 new AclClientRequestSigner()
-                    .Sign(objectToSend, config.SecretAsBase64));
+                    .Sign(objectToSend, signatureConfiguration.SharedSecret));
         }
     }
 }
