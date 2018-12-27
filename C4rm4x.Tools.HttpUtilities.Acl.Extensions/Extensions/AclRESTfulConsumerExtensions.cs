@@ -76,10 +76,10 @@ namespace C4rm4x.Tools.HttpUtilities.Acl
         {
             return headers =>
             {
-                consumer.GetAuthorizationHeader(config);
+                consumer.GetAuthorizationHeader(config)(headers);
 
                 if (config.SignatureConfiguration.IsNotNull())
-                    consumer.GetSignatureHeader(config, objectToSend);
+                    consumer.GetSignatureHeader(config, objectToSend)(headers);
             };
         }
 
